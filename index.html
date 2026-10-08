@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melting Snowman</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: "Arial Rounded MT Bold", Arial, sans-serif;
+        background: linear-gradient(#bde9ff, #eefaff);
+        min-height: 100vh;
+        color: #24506b;
+        overflow-x: hidden;
+    }
+
+    /* =========================
+       FALLING SNOW
+    ========================= */
+
+    .snow-container {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+    }
+
+    .snowflake {
+        position: absolute;
+        top: -30px;
+        color: white;
+        user-select: none;
+        animation-name: snowfall;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        opacity: 0.9;
+    }
+
+    @keyframes snowfall {
+        from {
+            transform: translateY(-30px) rotate(0deg);
+        }
+        to {
+            transform: translateY(110vh) rotate(360deg);
+        }
+    }
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .game {
+        position: relative;
+        z-index: 2;
+        width: 95%;
+        max-width: 1100px;
+        margin: auto;
+        padding: 20px 10px 40px;
+        text-align: center;
+    }
+
+    h1 {
+        margin: 5px 0 3px;
+        font-size: clamp(34px, 6vw, 58px);
+        color: #1976a8;
+        text-shadow: 2px 3px white;
+    }
+
+    .subtitle {
+        font-size: 18px;
+        margin-bottom: 18px;
+        color: #47738a;
+    }
+
+    /* =========================
+       SETUP SCREEN
+    ========================= */
+
+    .panel {
+        background: rgba(255,255,255,0.92);
+        border-radius: 25px;
+        padding: 25px;
+        box-shadow: 0 8px 25px rgba(40,100,130,0.18);
+        margin: 15px auto;
+        max-width: 650px;
+    }
+
+    .panel h2 {
+        margin-top: 0;
+        color: #1976a8;
+    }
+
+    .word-input {
+        width: 100%;
+        font-size: 28px;
+        padding: 15px;
+        border: 3px solid #9edcf5;
+        border-radius: 15px;
+        text-align: center;
+        outline: none;
+        text-transform: uppercase;
+        color: #24506b;
+    }
+
+    .word-input:focus {
+        border-color: #48aee0;
+    }
+
+    .button-row {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-top: 15px;
+    }
+
+    button {
+        font-family: inherit;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.12s, box-shadow 0.12s;
+    }
+
+    button:hover {
+        transform: translateY(-2px);
+    }
+
+    button:active {
+        transform: translateY(1px);
+    }
+
+    .small-btn {
+        padding: 11px 20px;
+        border-radius: 12px;
+        background: #e2f5ff;
+        color: #24627d;
+        font-size: 16px;
+        box-shadow: 0 3px 8px rgba(40,100,130,0.15);
+    }
+
+    .start-btn {
+        background: #55c878;
+        color: white;
+        font-size: 22px;
+        padding: 15px 45px;
+        border-radius: 16px;
+        margin-top: 18px;
+        box-shadow: 0 5px 12px rgba(40,140,75,0.25);
+    }
+
+    .timer-options {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    .timer-btn {
+        background: #eef9ff;
+        border: 2px solid #a9dff5;
+        padding: 10px 17px;
+        border-radius: 12px;
+        font-size: 16px;
+        color: #28617b;
+    }
+
+    .timer-btn.selected {
+        background: #48aee0;
+        color: white;
+        border-color: #48aee0;
+    }
+
+    /* =========================
+       GAME SCREEN
+    ========================= */
+
+    #gameScreen {
+        display: none;
+    }
+
+    .top-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+    }
+
+    .info-box {
+        background: rgba(255,255,255,0.92);
+        border-radius: 15px;
+        padding: 10px 20px;
+        min-width: 120px;
+        box-shadow: 0 4px 12px rgba(40,100,130,0.14);
+        font-size: 18px;
+    }
+
+    .score-number {
+        color: #ef9d21;
+        font-size: 26px;
+    }
+
+    .timer-number {
+        color: #d95c69;
+        font-size: 26px;
+    }
+
+    .round-number {
+        color: #4196bd;
+        font-size: 26px;
+    }
+
+    /* =========================
+       SNOWMAN
+    ========================= */
+
+    .snowman-area {
+        min-height: 365px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        position: relative;
+        margin-top: 5px;
+    }
+
+    .snow-ground {
+        width: 300px;
+        height: 45px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 0;
+        box-shadow: 0 3px 10px rgba(70,140,170,0.15);
+    }
+
+    .snowman {
+        width: 230px;
+        height: 340px;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    /* body */
+    .body {
+        position: absolute;
+        width: 155px;
+        height: 155px;
+        background: white;
+        border-radius: 50%;
+        bottom: 15px;
+        left: 38px;
+        box-shadow: inset -8px -8px 0 #dceff5;
+    }
+
+    /* head */
+    .head {
+        position: absolute;
+        width: 125px;
+        height: 125px;
+        background: white;
+        border-radius: 50%;
+        top: 65px;
+        left: 53px;
+        box-shadow: inset -7px -7px 0 #dceff5;
+    }
+
+    /* hat */
+    .hat-top {
+        position: absolute;
+        width: 70px;
+        height: 65px;
+        background: #3d6374;
+        left: 81px;
+        top: 10px;
+        border-radius: 10px 10px 3px 3px;
+    }
+
+    .hat-brim {
+        position: absolute;
+        width: 105px;
+        height: 17px;
+        background: #3d6374;
+        left: 64px;
+        top: 67px;
+        border-radius: 10px;
+    }
+
+    /* face */
+    .eye {
+        position: absolute;
+        width: 13px;
+        height: 13px;
+        background: #284c5d;
+        border-radius: 50%;
+        top: 105px;
+    }
+
+    .eye.left {
+        left: 82px;
+    }
+
+    .eye.right {
+        left: 133px;
+    }
+
+    .nose {
+        position: absolute;
+        left: 107px;
+        top: 121px;
+        width: 0;
+        height: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 42px solid #ef9c36;
+        transform: rotate(-4deg);
+    }
+
+    .mouth {
+        position: absolute;
+        width: 42px;
+        height: 20px;
+        border-bottom: 4px solid #476778;
+        border-radius: 50%;
+        left: 94px;
+        top: 145px;
+    }
+
+    /* scarf */
+    .scarf {
+        position: absolute;
+        width: 125px;
+        height: 22px;
+        background: #e46d75;
+        left: 53px;
+        top: 175px;
+        border-radius: 7px;
+        z-index: 3;
+    }
+
+    .scarf-tail {
+        position: absolute;
+        width: 28px;
+        height: 78px;
+        background: #e46d75;
+        left: 140px;
+        top: 185px;
+        transform: rotate(-10deg);
+        border-radius: 5px;
+    }
+
+    /* buttons */
+    .snow-button {
+        position: absolute;
+        width: 13px;
+        height: 13px;
+        background: #456c7c;
+        border-radius: 50%;
+        left: 108px;
+    }
+
+    .snow-button.one {
+        bottom: 110px;
+    }
+
+    .snow-button.two {
+        bottom: 80px;
+    }
+
+    .snow-button.three {
+        bottom: 50px;
+    }
+
+    /* arms */
+    .arm {
+        position: absolute;
+        height: 7px;
+        width: 95px;
+        background: #8b633d;
+        top: 220px;
+        border-radius: 5px;
+    }
+
+    .arm.left {
+        left: -10px;
+        transform: rotate(25deg);
+    }
+
+    .arm.right {
+        right: -10px;
+        transform: rotate(-25deg);
+    }
+
+    /* =========================
+       MELTING STAGES
+    ========================= */
+
+    .snowman.stage2 .hat-top {
+        transform: rotate(-12deg) translate(-5px, 12px);
+    }
+
+    .snowman.stage2 .hat-brim {
+        transform: rotate(-8deg) translate(-5px, 12px);
+    }
+
+    .snowman.stage3 .head {
+        height: 105px;
+        width: 120px;
+        top: 82px;
+        left: 55px;
+        border-radius: 45% 55% 50% 45%;
+    }
+
+    .snowman.stage3 .nose,
+    .snowman.stage3 .mouth {
+        transform: scale(0.9);
+    }
+
+    .snowman.stage4 .body {
+        width: 145px;
+        height: 115px;
+        bottom: 15px;
+        left: 43px;
+        border-radius: 50% 50% 40% 40%;
+    }
+
+    .snowman.stage4 .head {
+        width: 105px;
+        height: 85px;
+        top: 105px;
+        left: 62px;
+    }
+
+    .snowman.stage4 .scarf {
+        top: 178px;
+        width: 105px;
+        left: 62px;
+    }
+
+    .snowman.stage4 .scarf-tail {
+        display: none;
+    }
+
+    .snowman.stage5 .body {
+        width: 130px;
+        height: 80px;
+        bottom: 15px;
+        left: 50px;
+        border-radius: 50%;
+    }
+
+    .snowman.stage5 .head {
+        width: 85px;
+        height: 65px;
+        top: 125px;
+        left: 72px;
+    }
+
+    .snowman.stage5 .hat-top {
+        width: 55px;
+        height: 45px;
+        left: 87px;
+        top: 88px;
+    }
+
+    .snowman.stage5 .hat-brim {
+        width: 80px;
+        left: 75px;
+        top: 130px;
+    }
+
+    .snowman.stage5 .scarf,
+    .snowman.stage5 .scarf-tail,
+    .snowman.stage5 .arms,
+    .snowman.stage5 .arm {
+        display: none;
+    }
+
+    .snowman.stage5 .eye,
+    .snowman.stage5 .nose,
+    .snowman.stage5 .mouth,
+    .snowman.stage5 .snow-button {
+        display: none;
+    }
+
+    .snowman.stage6 .body {
+        width: 105px;
+        height: 42px;
+        bottom: 15px;
+        left: 63px;
+    }
+
+    .snowman.stage6 .head,
+    .snowman.stage6 .hat-top,
+    .snowman.stage6 .hat-brim,
+    .snowman.stage6 .scarf,
+    .snowman.stage6 .scarf-tail,
+    .snowman.stage6 .arm,
+    .snowman.stage6 .eye,
+    .snowman.stage6 .nose,
+    .snowman.stage6 .mouth,
+    .snowman.stage6 .snow-button {
+        display: none;
+    }
+
+    .snowman.stage7 {
+        height: 45px;
+    }
+
+    .snowman.stage7 > * {
+        display: none !important;
+    }
+
+    .snowman.stage7::after {
+        content: "💧";
+        position: absolute;
+        font-size: 35px;
+        left: 95px;
+        bottom: 5px;
+        animation: drip 1s infinite alternate;
+    }
+
+    @keyframes drip {
+        from {
+            transform: translateY(0);
+        }
+        to {
+            transform: translateY(8px);
+        }
+    }
+
+    /* =========================
+       WORD
+    ========================= */
+
+    .word-area {
+        background: rgba(255,255,255,0.94);
+        border-radius: 20px;
+        padding: 18px;
+        margin: 5px auto 15px;
+        max-width: 900px;
+        box-shadow: 0 5px 15px rgba(40,100,130,0.14);
+    }
+
+    .word-display {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 9px;
+        min-height: 55px;
+    }
+
+    .letter-slot {
+        width: 42px;
+        height: 48px;
+        border-bottom: 5px solid #39738d;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 4px;
+        font-size: 32px;
+        font-weight: bold;
+        color: #256f98;
+    }
+
+    .letter-slot.revealed {
+        animation: popLetter 0.25s ease;
+    }
+
+    @keyframes popLetter {
+        0% {
+            transform: scale(0.5);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    /* =========================
+       ALPHABET
+    ========================= */
+
+    .alphabet-title {
+        font-size: 17px;
+        margin-bottom: 8px;
+        color: #537789;
+    }
+
+    .alphabet {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 7px;
+        max-width: 900px;
+        margin: auto;
+    }
+
+    .letter-button {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        background: white;
+        color: #27647f;
+        border: 2px solid #9bd8ef;
+        font-size: 19px;
+        font-weight: bold;
+        box-shadow: 0 3px 7px rgba(50,120,150,0.12);
+    }
+
+    .letter-button:hover {
+        background: #e7f8ff;
+    }
+
+    .letter-button.correct {
+        background: #62cf85;
+        color: white;
+        border-color: #62cf85;
+    }
+
+    .letter-button.wrong {
+        background: #d9e1e5;
+        color: #9aa8ae;
+        border-color: #d9e1e5;
+        transform: none;
+        cursor: default;
+    }
+
+    /* =========================
+       CONTROLS
+    ========================= */
+
+    .controls {
+        margin-top: 17px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .next-btn {
+        background: #4da9d3;
+        color: white;
+        padding: 13px 30px;
+        border-radius: 14px;
+        font-size: 18px;
+    }
+
+    .new-game-btn {
+        background: #e89a55;
+        color: white;
+        padding: 13px 25px;
+        border-radius: 14px;
+        font-size: 18px;
+    }
+
+    /* =========================
+       MESSAGE
+    ========================= */
+
+    .message {
+        min-height: 35px;
+        margin: 10px auto;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+    .message.good {
+        color: #45ad67;
+    }
+
+    .message.bad {
+        color: #d86d73;
+    }
+
+    /* =========================
+       MODAL
+    ========================= */
+
+    .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(25,80,110,0.45);
+        z-index: 20;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .result-box {
+        background: white;
+        border-radius: 28px;
+        padding: 35px;
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 15px 40px rgba(20,80,110,0.3);
+    }
+
+    .result-box h2 {
+        font-size: 38px;
+        color: #3193bd;
+        margin-top: 0;
+    }
+
+    .result-score {
+        font-size: 28px;
+        color: #ed9b22;
+        margin: 15px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 600px) {
+
+        .game {
+            padding-top: 10px;
+        }
+
+        .snowman-area {
+            min-height: 300px;
+            transform: scale(0.82);
+            margin-top: -20px;
+            margin-bottom: -25px;
+        }
+
+        .letter-button {
+            width: 38px;
+            height: 42px;
+            font-size: 17px;
+        }
+
+        .letter-slot {
+            width: 32px;
+            height: 42px;
+            font-size: 26px;
+        }
+
+        .info-box {
+            min-width: 95px;
+            padding: 8px 12px;
+            font-size: 15px;
+        }
+
+        .score-number,
+        .timer-number,
+        .round-number {
+            font-size: 21px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="snow-container" id="snowContainer"></div>
+
+<div class="game">
+
+    <h1>☃️ Melting Snowman</h1>
+    <div class="subtitle">
+        Guess the letters before the snowman melts!
+    </div>
+
+    <!-- =========================
+         SETUP SCREEN
+    ========================= -->
+
+    <div id="setupScreen" class="panel">
+
+        <h2>❄️ Create Your Word</h2>
+
+        <p>
+            Type a word for your student to guess.
+        </p>
+
+        <input
+            type="text"
+            id="wordInput"
+            class="word-input"
+            placeholder="TYPE A WORD"
+            autocomplete="off"
+            maxlength="20"
+        >
+
+        <div class="button-row">
+            <button class="small-btn" onclick="deleteLastLetter()">
+                ⌫ Delete
+            </button>
+
+            <button class="small-btn" onclick="clearWord()">
+                Clear
+            </button>
+        </div>
+
+        <h3>⏰ Choose Timer</h3>
+
+        <div class="timer-options">
+
+            <button class="timer-btn" onclick="selectTimer(1)" id="timer1">
+                1 Minute
+            </button>
+
+            <button class="timer-btn" onclick="selectTimer(2)" id="timer2">
+                2 Minutes
+            </button>
+
+            <button class="timer-btn" onclick="selectTimer(3)" id="timer3">
+                3 Minutes
+            </button>
+
+            <button class="timer-btn" onclick="selectTimer(4)" id="timer4">
+                4 Minutes
+            </button>
+
+            <button class="timer-btn selected" onclick="selectTimer(5)" id="timer5">
+                5 Minutes
+            </button>
+
+        </div>
+
+        <button class="start-btn" onclick="startGame()">
+            ❄️ Start Game ❄️
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         GAME SCREEN
+    ========================= -->
+
+    <div id="gameScreen">
+
+        <div class="top-info">
+
+            <div class="info-box">
+                ⭐ Score:
+                <span class="score-number" id="score">0</span>
+            </div>
+
+            <div class="info-box">
+                ⏰ Time:
+                <span class="timer-number" id="timer">5:00</span>
+            </div>
+
+            <div class="info-box">
+                ❄️ Word:
+                <span class="round-number" id="round">1</span>
+            </div>
+
+        </div>
+
+
+        <!-- SNOWMAN -->
+
+        <div class="snowman-area">
+
+            <div class="snowman" id="snowman">
+
+                <div class="hat-top"></div>
+                <div class="hat-brim"></div>
+
+                <div class="head"></div>
+
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+
+                <div class="nose"></div>
+                <div class="mouth"></div>
+
+                <div class="scarf"></div>
+                <div class="scarf-tail"></div>
+
+                <div class="arm left"></div>
+                <div class="arm right"></div>
+
+                <div class="body"></div>
+
+                <div class="snow-button one"></div>
+                <div class="snow-button two"></div>
+                <div class="snow-button three"></div>
+
+            </div>
+
+            <div class="snow-ground"></div>
+
+        </div>
+
+
+        <!-- WORD -->
+
+        <div class="word-area">
+
+            <div class="word-display" id="wordDisplay"></div>
+
+        </div>
+
+
+        <div class="message" id="message">
+            Choose a letter!
+        </div>
+
+
+        <!-- ALPHABET -->
+
+        <div class="alphabet-title">
+            Choose a letter:
+        </div>
+
+        <div class="alphabet" id="alphabet"></div>
+
+
+        <!-- CONTROLS -->
+
+        <div class="controls">
+
+            <button class="next-btn" onclick="nextWord()">
+                ➡️ Next Word
+            </button>
+
+            <button class="new-game-btn" onclick="newGame()">
+                🔄 New Game
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     RESULT MODAL
+========================= -->
+
+<div class="overlay" id="resultOverlay">
+
+    <div class="result-box">
+
+        <h2 id="resultTitle">
+            Great Job! 🎉
+        </h2>
+
+        <div class="result-score">
+            ⭐ Score:
+            <span id="finalScore">0</span>
+        </div>
+
+        <p id="resultMessage">
+            You saved the snowman!
+        </p>
+
+        <button class="start-btn" onclick="closeResult()">
+            ➡️ Next Word
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   GAME VARIABLES
+========================= */
+
+let secretWord = "";
+let guessedLetters = [];
+let wrongGuesses = 0;
+
+let score = 0;
+let round = 1;
+
+let selectedMinutes = 5;
+let timeLeft = 300;
+let timerInterval = null;
+
+let gameFinished = false;
+
+
+/* =========================
+   FALLING SNOW
+========================= */
+
+function createSnow() {
+
+    const container = document.getElementById("snowContainer");
+
+    for (let i = 0; i < 45; i++) {
+
+        const snow = document.createElement("div");
+
+        snow.className = "snowflake";
+
+        snow.textContent = Math.random() > 0.5 ? "❄" : "•";
+
+        snow.style.left = Math.random() * 100 + "%";
+
+        snow.style.fontSize =
+            (Math.random() * 14 + 8) + "px";
+
+        snow.style.animationDuration =
+            (Math.random() * 7 + 6) + "s";
+
+        snow.style.animationDelay =
+            (Math.random() * 8) + "s";
+
+        container.appendChild(snow);
+    }
+}
+
+createSnow();
+
+
+/* =========================
+   TIMER SELECTION
+========================= */
+
+function selectTimer(minutes) {
+
+    selectedMinutes = minutes;
+
+    document.querySelectorAll(".timer-btn").forEach(btn => {
+        btn.classList.remove("selected");
+    });
+
+    document.getElementById("timer" + minutes)
+        .classList.add("selected");
+}
+
+
+/* =========================
+   WORD INPUT
+========================= */
+
+document.getElementById("wordInput")
+    .addEventListener("input", function() {
+
+        this.value = this.value
+            .replace(/[^a-zA-Z]/g, "")
+            .toUpperCase();
+
+    });
+
+
+function deleteLastLetter() {
+
+    const input = document.getElementById("wordInput");
+
+    input.value = input.value.slice(0, -1);
+
+    input.focus();
+}
+
+
+function clearWord() {
+
+    document.getElementById("wordInput").value = "";
+
+    document.getElementById("wordInput").focus();
+}
+
+
+/* =========================
+   START GAME
+========================= */
+
+function startGame() {
+
+    const input =
+        document.getElementById("wordInput");
+
+    const word =
+        input.value.trim().toUpperCase();
+
+    if (!word) {
+
+        alert("Please type a word first!");
+
+        input.focus();
+
+        return;
+    }
+
+    secretWord = word;
+
+    guessedLetters = [];
+
+    wrongGuesses = 0;
+
+    gameFinished = false;
+
+    timeLeft = selectedMinutes * 60;
+
+    document.getElementById("setupScreen")
+        .style.display = "none";
+
+    document.getElementById("gameScreen")
+        .style.display = "block";
+
+    document.getElementById("round")
+        .textContent = round;
+
+    updateTimerDisplay();
+
+    createAlphabet();
+
+    displayWord();
+
+    updateSnowman();
+
+    showMessage("Choose a letter!", "");
+
+    startTimer();
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+function startTimer() {
+
+    clearInterval(timerInterval);
+
+    timerInterval = setInterval(function() {
+
+        if (gameFinished) {
+            clearInterval(timerInterval);
+            return;
+        }
+
+        timeLeft--;
+
+        updateTimerDisplay();
+
+        if (timeLeft <= 0) {
+
+            clearInterval(timerInterval);
+
+            timeUp();
+
+        }
+
+    }, 1000);
+}
+
+
+function updateTimerDisplay() {
+
+    const minutes =
+        Math.floor(timeLeft / 60);
+
+    const seconds =
+        timeLeft % 60;
+
+    document.getElementById("timer")
+        .textContent =
+        minutes + ":" +
+        String(seconds).padStart(2, "0");
+}
+
+
+function timeUp() {
+
+    gameFinished = true;
+
+    revealWord();
+
+    showResult(
+        "⏰ Time's Up!",
+        "The snowman needs a little help!",
+        false
+    );
+}
+
+
+/* =========================
+   ALPHABET
+========================= */
+
+function createAlphabet() {
+
+    const alphabet =
+        document.getElementById("alphabet");
+
+    alphabet.innerHTML = "";
+
+    const letters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    for (let letter of letters) {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "letter-button";
+
+        button.textContent = letter;
+
+        button.dataset.letter = letter;
+
+        button.onclick = function() {
+
+            chooseLetter(letter, button);
+
+        };
+
+        alphabet.appendChild(button);
+    }
+}
+
+
+/* =========================
+   CHOOSE LETTER
+========================= */
+
+function chooseLetter(letter, button) {
+
+    if (gameFinished) return;
+
+    if (guessedLetters.includes(letter)) return;
+
+    guessedLetters.push(letter);
+
+    button.disabled = true;
+
+    if (secretWord.includes(letter)) {
+
+        button.classList.add("correct");
+
+        /*
+         * One point for each occurrence
+         * of the correctly guessed letter.
+         */
+
+        let occurrences = 0;
+
+        for (let char of secretWord) {
+
+            if (char === letter) {
+                occurrences++;
+            }
+
+        }
+
+        score += occurrences;
+
+        document.getElementById("score")
+            .textContent = score;
+
+        displayWord();
+
+        showMessage(
+            "⭐ Great job!",
+            "good"
+        );
+
+        checkWin();
+
+    } else {
+
+        button.classList.add("wrong");
+
+        wrongGuesses++;
+
+        updateSnowman();
+
+        showMessage(
+            "❄️ The snowman is melting!",
+            "bad"
+        );
+
+        if (wrongGuesses >= 7) {
+
+            loseGame();
+
+        }
+
+    }
+}
+
+
+/* =========================
+   DISPLAY WORD
+========================= */
+
+function displayWord() {
+
+    const display =
+        document.getElementById("wordDisplay");
+
+    display.innerHTML = "";
+
+    for (let letter of secretWord) {
+
+        const slot =
+            document.createElement("div");
+
+        slot.className = "letter-slot";
+
+        if (guessedLetters.includes(letter)) {
+
+            slot.textContent = letter;
+
+            slot.classList.add("revealed");
+
+        } else {
+
+            slot.textContent = "";
+
+        }
+
+        display.appendChild(slot);
+    }
+}
+
+
+/* =========================
+   CHECK WIN
+========================= */
+
+function checkWin() {
+
+    let complete = true;
+
+    for (let letter of secretWord) {
+
+        if (!guessedLetters.includes(letter)) {
+
+            complete = false;
+
+            break;
+        }
+    }
+
+    if (complete) {
+
+        gameFinished = true;
+
+        clearInterval(timerInterval);
+
+        showResult(
+            "🎉 Amazing!",
+            "You saved the snowman!",
+            true
+        );
+    }
+}
+
+
+/* =========================
+   SNOWMAN STAGES
+========================= */
+
+function updateSnowman() {
+
+    const snowman =
+        document.getElementById("snowman");
+
+    for (let i = 1; i <= 7; i++) {
+
+        snowman.classList.remove(
+            "stage" + i
+        );
+
+    }
+
+    /*
+     * Stage 1 = complete
+     * Stage 7 = completely melted
+     */
+
+    const stage =
+        Math.min(wrongGuesses + 1, 7);
+
+    snowman.classList.add(
+        "stage" + stage
+    );
+}
+
+
+/* =========================
+   LOSE GAME
+========================= */
+
+function loseGame() {
+
+    gameFinished = true;
+
+    clearInterval(timerInterval);
+
+    revealWord();
+
+    showResult(
+        "☃️ Oh No!",
+        "The snowman melted! The word was " +
+        secretWord + ".",
+        false
+    );
+}
+
+
+/* =========================
+   REVEAL WORD
+========================= */
+
+function revealWord() {
+
+    guessedLetters =
+        secretWord.split("");
+
+    displayWord();
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+function showMessage(text, type) {
+
+    const message =
+        document.getElementById("message");
+
+    message.textContent = text;
+
+    message.className = "message " + type;
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+function showResult(title, message, won) {
+
+    document.getElementById("resultTitle")
+        .textContent = title;
+
+    document.getElementById("resultMessage")
+        .textContent = message;
+
+    document.getElementById("finalScore")
+        .textContent = score;
+
+    document.getElementById("resultOverlay")
+        .style.display = "flex";
+}
+
+
+function closeResult() {
+
+    document.getElementById("resultOverlay")
+        .style.display = "none";
+
+    nextWord();
+}
+
+
+/* =========================
+   NEXT WORD
+========================= */
+
+function nextWord() {
+
+    clearInterval(timerInterval);
+
+    document.getElementById("resultOverlay")
+        .style.display = "none";
+
+    document.getElementById("gameScreen")
+        .style.display = "none";
+
+    document.getElementById("setupScreen")
+        .style.display = "block";
+
+    document.getElementById("wordInput")
+        .value = "";
+
+    document.getElementById("wordInput")
+        .focus();
+
+    round++;
+
+    wrongGuesses = 0;
+
+    guessedLetters = [];
+
+    gameFinished = false;
+}
+
+
+/* =========================
+   NEW GAME
+========================= */
+
+function newGame() {
+
+    clearInterval(timerInterval);
+
+    score = 0;
+
+    round = 1;
+
+    wrongGuesses = 0;
+
+    guessedLetters = [];
+
+    gameFinished = false;
+
+    document.getElementById("score")
+        .textContent = "0";
+
+    document.getElementById("gameScreen")
+        .style.display = "none";
+
+    document.getElementById("setupScreen")
+        .style.display = "block";
+
+    document.getElementById("wordInput")
+        .value = "";
+
+    document.getElementById("wordInput")
+        .focus();
+}
+
+
+/* =========================
+   KEYBOARD SUPPORT
+========================= */
+
+document.addEventListener("keydown", function(event) {
+
+    /*
+     * Allow the teacher to type
+     * the word normally.
+     */
+
+    if (
+        document.getElementById("setupScreen")
+            .style.display !== "none"
+    ) {
+        return;
+    }
+
+    if (gameFinished) return;
+
+    const key =
+        event.key.toUpperCase();
+
+    if (
+        key.length === 1 &&
+        key >= "A" &&
+        key <= "Z"
+    ) {
+
+        const button =
+            document.querySelector(
+                `[data-letter="${key}"]`
+            );
+
+        if (
+            button &&
+            !button.disabled
+        ) {
+
+            chooseLetter(key, button);
+
+        }
+    }
+
+});
+
+</script>
+
+</body>
+</html>
