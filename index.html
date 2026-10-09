@@ -1,13 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Melting Snowman</title>
 
 <style>
-* { box-sizing: border-box; }
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
@@ -17,6 +20,10 @@ body {
     color: #28576e;
     overflow-x: hidden;
 }
+
+/* =========================================================
+   FALLING SNOW
+========================================================= */
 
 .snow-container {
     position: fixed;
@@ -31,351 +38,1032 @@ body {
     top: -40px;
     color: white;
     user-select: none;
-    opacity: .9;
-    animation: snowfall linear infinite;
+    opacity: 0.9;
+    animation-name: snowfall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
 
 @keyframes snowfall {
-    from { transform: translateY(-40px) rotate(0deg); }
-    to { transform: translateY(110vh) rotate(360deg); }
+
+    from {
+        transform: translateY(-40px) rotate(0deg);
+    }
+
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+
 }
+
+/* =========================================================
+   MAIN
+========================================================= */
 
 .game {
     position: relative;
     z-index: 2;
+
     width: 95%;
     max-width: 1100px;
+
     margin: auto;
-    padding: 18px 10px 50px;
+
+    padding:
+        18px
+        10px
+        50px;
+
     text-align: center;
 }
 
 h1 {
-    margin: 5px 0 2px;
-    font-size: clamp(35px, 6vw, 58px);
+
+    margin:
+        5px
+        0
+        2px;
+
+    font-size:
+        clamp(35px, 6vw, 58px);
+
     color: #1976a8;
-    text-shadow: 2px 3px white;
+
+    text-shadow:
+        2px 3px white;
 }
 
 .subtitle {
-    margin: 8px 0 20px;
+
+    margin-bottom: 20px;
+
     font-size: 18px;
+
     color: #50798a;
 }
 
+/* =========================================================
+   PANELS
+========================================================= */
+
 .panel {
-    background: rgba(255,255,255,.94);
+
+    background:
+        rgba(255,255,255,0.94);
+
     border-radius: 25px;
-    padding: 25px;
-    max-width: 750px;
-    margin: 15px auto;
-    box-shadow: 0 8px 25px rgba(40,100,130,.18);
+
+    padding: 28px;
+
+    max-width: 700px;
+
+    margin:
+        15px
+        auto;
+
+    box-shadow:
+        0 8px 25px
+        rgba(40,100,130,0.18);
 }
 
-.panel h2 { margin-top: 0; color: #1976a8; }
+.panel h2 {
 
-.section-title {
+    margin-top: 0;
+
+    color: #1976a8;
+}
+
+/* =========================================================
+   MODE SELECTION
+========================================================= */
+
+.mode-title {
+
     font-size: 18px;
-    font-weight: bold;
-    margin: 20px 0 10px;
+
+    margin:
+        15px
+        0
+        10px;
 }
 
-.mode-buttons, .timer-options, .button-row {
+.mode-buttons {
+
     display: flex;
+
     justify-content: center;
-    gap: 9px;
+
+    gap: 10px;
+
     flex-wrap: wrap;
 }
 
-.mode-btn, .timer-btn, .small-btn {
-    padding: 11px 16px;
-    border-radius: 13px;
+.mode-btn {
+
+    padding:
+        12px
+        20px;
+
+    border-radius: 14px;
+
     background: #eef9ff;
-    border: 2px solid #a8dff4;
+
+    border:
+        2px solid
+        #a8dff4;
+
     color: #28627d;
-    font-size: 16px;
-    cursor: pointer;
-    transition: .15s;
-}
 
-.mode-btn:hover, .timer-btn:hover, .small-btn:hover {
-    transform: translateY(-2px);
-}
-
-.mode-btn.selected, .timer-btn.selected {
-    background: #4baedc;
-    color: white;
-    border-color: #4baedc;
-}
-
-select, .word-input {
-    width: 100%;
-    max-width: 420px;
-    padding: 13px;
-    border-radius: 12px;
-    border: 2px solid #a8dff4;
     font-size: 17px;
-    color: #28576e;
-    background: white;
+
+    cursor: pointer;
+}
+
+.mode-btn:hover {
+
+    transform:
+        translateY(-2px);
+}
+
+.mode-btn.selected {
+
+    background: #4baedc;
+
+    color: white;
+
+    border-color: #4baedc;
+
+    box-shadow:
+        0 4px 10px
+        rgba(50,130,170,0.25);
+}
+
+/* =========================================================
+   MANUAL WORD INPUT
+========================================================= */
+
+.manual-area {
+
+    margin-top: 18px;
 }
 
 .word-input {
+
+    width: 100%;
+
+    font-size: 28px;
+
+    padding: 15px;
+
     text-align: center;
+
     text-transform: uppercase;
-    letter-spacing: 2px;
+
+    border:
+        3px solid
+        #9edcf5;
+
+    border-radius: 15px;
+
+    outline: none;
+
+    color: #28576e;
 }
 
-.start-btn, .action-btn {
-    margin: 20px 5px 0;
-    padding: 15px 25px;
-    border: 0;
-    border-radius: 16px;
-    background: #2196c7;
-    color: white;
-    font-size: 19px;
-    font-weight: bold;
+.word-input:focus {
+
+    border-color:
+        #48aee0;
+}
+
+.button-row {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 12px;
+}
+
+.small-btn {
+
+    padding:
+        10px
+        19px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #e2f5ff;
+
+    color: #28627d;
+
+    font-size: 16px;
+
     cursor: pointer;
-    box-shadow: 0 5px 0 #1679a3;
+
+    box-shadow:
+        0 3px 8px
+        rgba(40,100,130,0.12);
 }
 
-.start-btn:hover, .action-btn:hover { background: #147fae; }
+/* =========================================================
+   CATEGORY SELECTOR
+========================================================= */
+.category-area {
+    margin: 18px auto 8px;
+    padding: 16px;
+    border-radius: 16px;
+    background: #f0faff;
+    border: 2px solid #c7eaf8;
+}
+.category-area label {
+    display: block;
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 9px;
+}
+.category-select {
+    width: 100%;
+    max-width: 420px;
+    padding: 13px 15px;
+    border: 2px solid #9edcf5;
+    border-radius: 12px;
+    background: white;
+    color: #28576e;
+    font: inherit;
+    font-size: 17px;
+}
+.category-help {
+    margin: 9px 0 0;
+    font-size: 14px;
+    color: #50798a;
+}
 
-#gameScreen { display: none; }
+/* =========================================================
+   TIMER
+========================================================= */
+
+.timer-heading {
+
+    margin:
+        22px
+        0
+        10px;
+}
+
+.timer-options {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+}
+
+.timer-btn {
+
+    background:
+        #eef9ff;
+
+    border:
+        2px solid
+        #a9dff5;
+
+    padding:
+        10px
+        17px;
+
+    border-radius:
+        12px;
+
+    font-size:
+        16px;
+
+    color:
+        #28617b;
+
+    cursor: pointer;
+}
+
+.timer-btn.selected {
+
+    background:
+        #48aee0;
+
+    color: white;
+
+    border-color:
+        #48aee0;
+}
+
+/* =========================================================
+   START
+========================================================= */
+
+.start-btn {
+
+    background:
+        #55c878;
+
+    color: white;
+
+    font-size:
+        22px;
+
+    padding:
+        15px
+        45px;
+
+    border-radius:
+        16px;
+
+    margin-top:
+        22px;
+
+    box-shadow:
+        0 5px 12px
+        rgba(40,140,75,0.25);
+
+    cursor: pointer;
+
+    border: none;
+}
+
+/* =========================================================
+   GAME SCREEN
+========================================================= */
+
+#gameScreen {
+
+    display: none;
+}
+
+/* =========================================================
+   TOP INFORMATION
+========================================================= */
 
 .top-info {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 18px 0;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    flex-wrap:
+        wrap;
+
+    margin-bottom:
+        8px;
 }
 
 .info-box {
-    background: white;
-    border-radius: 15px;
-    padding: 12px 18px;
-    box-shadow: 0 4px 12px rgba(40,100,130,.12);
-    font-weight: bold;
+
+    background:
+        rgba(255,255,255,0.94);
+
+    border-radius:
+        15px;
+
+    padding:
+        9px
+        18px;
+
+    min-width:
+        145px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(40,100,130,0.14);
+
+    font-size:
+        17px;
 }
 
-.info-number {
-    color: #2196c7;
-    font-size: 23px;
+.score-number {
+
+    color:
+        #ee9c20;
+
+    font-size:
+        25px;
 }
+
+.timer-number {
+
+    color:
+        #d75d69;
+
+    font-size:
+        25px;
+}
+
+.trials-number {
+
+    color:
+        #4b9bbd;
+
+    font-size:
+        25px;
+}
+
+.round-number {
+
+    color:
+        #4196bd;
+
+    font-size:
+        25px;
+}
+
+/* =========================================================
+   SNOWMAN AREA
+========================================================= */
 
 .snowman-area {
-    height: 365px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    position: relative;
+
+    height:
+        375px;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        flex-end;
+
+    position:
+        relative;
 }
 
 .snow-ground {
-    width: 300px;
-    height: 45px;
-    background: white;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 0;
-    box-shadow: 0 3px 10px rgba(70,140,170,.15);
+
+    width:
+        300px;
+
+    height:
+        45px;
+
+    background:
+        white;
+
+    border-radius:
+        50%;
+
+    position:
+        absolute;
+
+    bottom:
+        0;
+
+    box-shadow:
+        0 3px 10px
+        rgba(70,140,170,0.15);
 }
 
 .snowman {
-    width: 230px;
-    height: 345px;
-    position: relative;
-    margin-bottom: 20px;
-    transition: all .5s ease;
+
+    width:
+        230px;
+
+    height:
+        345px;
+
+    position:
+        relative;
+
+    margin-bottom:
+        20px;
+
+    transition:
+        all .3s ease;
 }
 
-.body, .head {
-    position: absolute;
-    background: white;
-    border-radius: 50%;
-    box-shadow: inset -8px -8px 0 #dceff5;
-    transition: all .5s ease;
-}
+/* =========================================================
+   SNOWMAN BODY
+========================================================= */
 
 .body {
-    width: 155px;
-    height: 155px;
-    bottom: 15px;
-    left: 38px;
+
+    position:
+        absolute;
+
+    width:
+        155px;
+
+    height:
+        155px;
+
+    background:
+        white;
+
+    border-radius:
+        50%;
+
+    bottom:
+        15px;
+
+    left:
+        38px;
+
+    box-shadow:
+        inset -8px -8px 0
+        #dceff5;
+
+    transition:
+        all .5s ease;
 }
 
 .head {
-    width: 125px;
-    height: 125px;
-    top: 65px;
-    left: 53px;
+
+    position:
+        absolute;
+
+    width:
+        125px;
+
+    height:
+        125px;
+
+    background:
+        white;
+
+    border-radius:
+        50%;
+
+    top:
+        65px;
+
+    left:
+        53px;
+
+    box-shadow:
+        inset -7px -7px 0
+        #dceff5;
+
+    transition:
+        all .5s ease;
 }
 
+/* =========================================================
+   HAT
+========================================================= */
+
 .hat-top {
-    position: absolute;
-    width: 70px;
-    height: 65px;
-    background: #3d6374;
-    left: 81px;
-    top: 10px;
-    border-radius: 10px 10px 3px 3px;
-    transition: all .5s ease;
+
+    position:
+        absolute;
+
+    width:
+        70px;
+
+    height:
+        65px;
+
+    background:
+        #3d6374;
+
+    left:
+        81px;
+
+    top:
+        10px;
+
+    border-radius:
+        10px
+        10px
+        3px
+        3px;
+
+    transition:
+        all .5s ease;
 }
 
 .hat-brim {
-    position: absolute;
-    width: 105px;
-    height: 17px;
-    background: #3d6374;
-    left: 64px;
-    top: 67px;
-    border-radius: 10px;
-    transition: all .5s ease;
+
+    position:
+        absolute;
+
+    width:
+        105px;
+
+    height:
+        17px;
+
+    background:
+        #3d6374;
+
+    left:
+        64px;
+
+    top:
+        67px;
+
+    border-radius:
+        10px;
+
+    transition:
+        all .5s ease;
 }
+
+/* =========================================================
+   FACE
+========================================================= */
 
 .eye {
-    position: absolute;
-    width: 13px;
-    height: 13px;
-    background: #284c5d;
-    border-radius: 50%;
-    top: 105px;
-    z-index: 5;
+
+    position:
+        absolute;
+
+    width:
+        13px;
+
+    height:
+        13px;
+
+    background:
+        #284c5d;
+
+    border-radius:
+        50%;
+
+    top:
+        105px;
+
+    z-index:
+        5;
 }
 
-.eye.left { left: 82px; }
-.eye.right { left: 133px; }
+.eye.left {
+    left: 82px;
+}
+
+.eye.right {
+    left: 133px;
+}
 
 .nose {
-    position: absolute;
-    left: 107px;
-    top: 121px;
-    width: 0;
-    height: 0;
-    border-top: 8px solid transparent;
-    border-bottom: 8px solid transparent;
-    border-left: 42px solid #ef9c36;
-    transform: rotate(-4deg);
-    z-index: 5;
+
+    position:
+        absolute;
+
+    left:
+        107px;
+
+    top:
+        121px;
+
+    width:
+        0;
+
+    height:
+        0;
+
+    border-top:
+        8px solid transparent;
+
+    border-bottom:
+        8px solid transparent;
+
+    border-left:
+        42px solid #ef9c36;
+
+    transform:
+        rotate(-4deg);
+
+    z-index:
+        5;
 }
 
 .mouth {
-    position: absolute;
-    width: 42px;
-    height: 20px;
-    border-bottom: 4px solid #476778;
-    border-radius: 50%;
-    left: 94px;
-    top: 145px;
-    z-index: 5;
+
+    position:
+        absolute;
+
+    width:
+        42px;
+
+    height:
+        20px;
+
+    border-bottom:
+        4px solid #476778;
+
+    border-radius:
+        50%;
+
+    left:
+        94px;
+
+    top:
+        145px;
+
+    z-index:
+        5;
 }
 
+/* =========================================================
+   SCARF
+========================================================= */
+
 .scarf {
-    position: absolute;
-    width: 125px;
-    height: 22px;
-    background: #e46d75;
-    left: 53px;
-    top: 175px;
-    border-radius: 7px;
-    z-index: 6;
+
+    position:
+        absolute;
+
+    width:
+        125px;
+
+    height:
+        22px;
+
+    background:
+        #e46d75;
+
+    left:
+        53px;
+
+    top:
+        175px;
+
+    border-radius:
+        7px;
+
+    z-index:
+        6;
+
+    transition:
+        all .5s ease;
 }
 
 .scarf-tail {
-    position: absolute;
-    width: 28px;
-    height: 78px;
-    background: #e46d75;
-    left: 140px;
-    top: 185px;
-    transform: rotate(-10deg);
-    border-radius: 5px;
-    z-index: 5;
+
+    position:
+        absolute;
+
+    width:
+        28px;
+
+    height:
+        78px;
+
+    background:
+        #e46d75;
+
+    left:
+        140px;
+
+    top:
+        185px;
+
+    transform:
+        rotate(-10deg);
+
+    border-radius:
+        5px;
+
+    z-index:
+        5;
 }
+
+/* =========================================================
+   ARMS
+========================================================= */
 
 .arm {
-    position: absolute;
-    height: 7px;
-    width: 95px;
-    background: #8b633d;
-    top: 220px;
-    border-radius: 5px;
-    z-index: 2;
+
+    position:
+        absolute;
+
+    height:
+        7px;
+
+    width:
+        95px;
+
+    background:
+        #8b633d;
+
+    top:
+        220px;
+
+    border-radius:
+        5px;
+
+    z-index:
+        2;
 }
 
-.arm.left { left: -10px; transform: rotate(25deg); }
-.arm.right { right: -10px; transform: rotate(-25deg); }
+.arm.left {
+
+    left:
+        -10px;
+
+    transform:
+        rotate(25deg);
+}
+
+.arm.right {
+
+    right:
+        -10px;
+
+    transform:
+        rotate(-25deg);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
 
 .snow-button {
-    position: absolute;
-    width: 13px;
-    height: 13px;
-    background: #456c7c;
-    border-radius: 50%;
-    left: 108px;
-    z-index: 5;
+
+    position:
+        absolute;
+
+    width:
+        13px;
+
+    height:
+        13px;
+
+    background:
+        #456c7c;
+
+    border-radius:
+        50%;
+
+    left:
+        108px;
+
+    z-index:
+        5;
 }
 
-.snow-button.one { bottom: 110px; }
-.snow-button.two { bottom: 80px; }
-.snow-button.three { bottom: 50px; }
+.snow-button.one {
+    bottom: 110px;
+}
+
+.snow-button.two {
+    bottom: 80px;
+}
+
+.snow-button.three {
+    bottom: 50px;
+}
+
+/* =========================================================
+   MELTING STAGES
+========================================================= */
 
 .snowman.stage2 .hat-top {
-    transform: rotate(-12deg) translate(-5px,12px);
+
+    transform:
+        rotate(-12deg)
+        translate(-5px,12px);
 }
 
 .snowman.stage2 .hat-brim {
-    transform: rotate(-8deg) translate(-5px,12px);
+
+    transform:
+        rotate(-8deg)
+        translate(-5px,12px);
 }
 
 .snowman.stage3 .head {
-    height: 105px;
-    width: 120px;
-    top: 82px;
-    left: 55px;
+
+    height:
+        105px;
+
+    width:
+        120px;
+
+    top:
+        82px;
+
+    left:
+        55px;
+
+    border-radius:
+        45%
+        55%
+        50%
+        45%;
 }
 
 .snowman.stage4 .body {
-    width: 145px;
-    height: 115px;
-    bottom: 15px;
-    left: 43px;
+
+    width:
+        145px;
+
+    height:
+        115px;
+
+    bottom:
+        15px;
+
+    left:
+        43px;
 }
 
 .snowman.stage4 .head {
-    width: 105px;
-    height: 85px;
-    top: 105px;
-    left: 62px;
+
+    width:
+        105px;
+
+    height:
+        85px;
+
+    top:
+        105px;
+
+    left:
+        62px;
 }
 
-.snowman.stage4 .scarf { width: 105px; left: 62px; }
-.snowman.stage4 .scarf-tail { display: none; }
+.snowman.stage4 .scarf {
+
+    width:
+        105px;
+
+    left:
+        62px;
+}
+
+.snowman.stage4 .scarf-tail {
+
+    display:
+        none;
+}
 
 .snowman.stage5 .body {
-    width: 130px;
-    height: 80px;
-    left: 50px;
+
+    width:
+        130px;
+
+    height:
+        80px;
+
+    left:
+        50px;
 }
 
 .snowman.stage5 .head {
-    width: 85px;
-    height: 65px;
-    top: 125px;
-    left: 72px;
+
+    width:
+        85px;
+
+    height:
+        65px;
+
+    top:
+        125px;
+
+    left:
+        72px;
 }
 
 .snowman.stage5 .hat-top {
-    width: 55px;
-    height: 45px;
-    left: 87px;
-    top: 88px;
+
+    width:
+        55px;
+
+    height:
+        45px;
+
+    left:
+        87px;
+
+    top:
+        88px;
 }
 
 .snowman.stage5 .hat-brim {
-    width: 80px;
-    left: 75px;
-    top: 130px;
+
+    width:
+        80px;
+
+    left:
+        75px;
+
+    top:
+        130px;
 }
 
 .snowman.stage5 .scarf,
@@ -385,35 +1073,26 @@ select, .word-input {
 .snowman.stage5 .nose,
 .snowman.stage5 .mouth,
 .snowman.stage5 .snow-button {
-    display: none;
+
+    display:
+        none;
 }
 
 .snowman.stage6 .body {
-    width: 105px;
-    height: 42px;
-    left: 63px;
+
+    width:
+        105px;
+
+    height:
+        42px;
+
+    left:
+        63px;
 }
 
-.snowman.stage6 .head {
-    width: 65px;
-    height: 35px;
-    top: 155px;
-    left: 82px;
-}
-
-.snowman.stage6 .hat-top {
-    top: 125px;
-    left: 90px;
-    width: 50px;
-    height: 30px;
-}
-
-.snowman.stage6 .hat-brim {
-    top: 150px;
-    left: 75px;
-    width: 80px;
-}
-
+.snowman.stage6 .head,
+.snowman.stage6 .hat-top,
+.snowman.stage6 .hat-brim,
 .snowman.stage6 .scarf,
 .snowman.stage6 .scarf-tail,
 .snowman.stage6 .arm,
@@ -421,865 +1100,2356 @@ select, .word-input {
 .snowman.stage6 .nose,
 .snowman.stage6 .mouth,
 .snowman.stage6 .snow-button {
-    display: none;
+
+    display:
+        none;
 }
 
-.word-area { margin: 15px auto; min-height: 55px; }
+.snowman.stage7 {
 
-.letter-slots {
-    display: flex;
-    justify-content: center;
-    gap: 7px;
-    flex-wrap: wrap;
+    height:
+        45px;
+}
+
+.snowman.stage7 > * {
+
+    display:
+        none !important;
+}
+
+.snowman.stage7::after {
+
+    content:
+        "💧";
+
+    position:
+        absolute;
+
+    font-size:
+        35px;
+
+    left:
+        95px;
+
+    bottom:
+        5px;
+
+    animation:
+        drip 1s infinite alternate;
+}
+
+@keyframes drip {
+
+    from {
+        transform:
+            translateY(0);
+    }
+
+    to {
+        transform:
+            translateY(8px);
+    }
+}
+
+/* =========================================================
+   WORD
+========================================================= */
+
+.word-area {
+
+    background:
+        rgba(255,255,255,0.95);
+
+    border-radius:
+        20px;
+
+    padding:
+        18px;
+
+    margin:
+        0
+        auto
+        13px;
+
+    max-width:
+        900px;
+
+    box-shadow:
+        0 5px 15px
+        rgba(40,100,130,0.14);
+}
+
+.word-display {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        9px;
+
+    min-height:
+        55px;
 }
 
 .letter-slot {
-    width: 42px;
-    height: 55px;
-    border-bottom: 5px solid #3198c3;
-    font-size: 32px;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #28576e;
+
+    width:
+        42px;
+
+    height:
+        48px;
+
+    border-bottom:
+        5px solid
+        #39738d;
+
+    display:
+        flex;
+
+    align-items:
+        flex-end;
+
+    justify-content:
+        center;
+
+    padding-bottom:
+        4px;
+
+    font-size:
+        32px;
+
+    font-weight:
+        bold;
+
+    color:
+        #256f98;
+}
+
+.letter-slot.revealed {
+
+    animation:
+        popLetter .25s ease;
+}
+
+@keyframes popLetter {
+
+    from {
+        transform:
+            scale(.5);
+    }
+
+    to {
+        transform:
+            scale(1);
+    }
+}
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message {
+
+    min-height:
+        35px;
+
+    margin:
+        8px auto;
+
+    font-size:
+        22px;
+
+    font-weight:
+        bold;
+}
+
+.message.good {
+    color:
+        #45ad67;
+}
+
+.message.bad {
+    color:
+        #d86d73;
+}
+
+/* =========================================================
+   ALPHABET
+========================================================= */
+
+.alphabet-title {
+
+    font-size:
+        17px;
+
+    margin-bottom:
+        8px;
+
+    color:
+        #537789;
 }
 
 .alphabet {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 7px;
-    max-width: 650px;
-    margin: 15px auto;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        7px;
+
+    max-width:
+        900px;
+
+    margin:
+        auto;
 }
 
 .letter-button {
-    width: 45px;
-    height: 48px;
-    border: 0;
-    border-radius: 11px;
-    background: white;
-    color: #28627d;
-    font-size: 20px;
-    font-weight: bold;
-    box-shadow: 0 3px 0 #b4ddeb;
-    cursor: pointer;
+
+    width:
+        46px;
+
+    height:
+        46px;
+
+    border-radius:
+        12px;
+
+    background:
+        white;
+
+    color:
+        #27647f;
+
+    border:
+        2px solid
+        #9bd8ef;
+
+    font-size:
+        19px;
+
+    font-weight:
+        bold;
+
+    box-shadow:
+        0 3px 7px
+        rgba(50,120,150,0.12);
+
+    cursor:
+        pointer;
 }
 
-.letter-button:hover:not(:disabled) { background: #d8f3ff; }
+.letter-button:hover {
 
-.letter-button:disabled {
-    opacity: .45;
-    cursor: default;
-    box-shadow: none;
+    background:
+        #e7f8ff;
+
+    transform:
+        translateY(-2px);
 }
 
-.message {
-    min-height: 30px;
-    margin: 12px;
-    font-size: 20px;
-    font-weight: bold;
+.letter-button.correct {
+
+    background:
+        #62cf85;
+
+    color:
+        white;
+
+    border-color:
+        #62cf85;
 }
 
-.message.good { color: #26935c; }
-.message.bad { color: #d85d69; }
+.letter-button.wrong {
 
-.result-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(25,80,110,.6);
-    z-index: 20;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+    background:
+        #d9e1e5;
+
+    color:
+        #9aa8ae;
+
+    border-color:
+        #d9e1e5;
+
+    cursor:
+        default;
+
+    transform:
+        none;
+}
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls {
+
+    margin-top:
+        17px;
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    gap:
+        10px;
+
+    flex-wrap:
+        wrap;
+}
+
+.next-btn {
+
+    background:
+        #4da9d3;
+
+    color:
+        white;
+
+    padding:
+        13px
+        30px;
+
+    border-radius:
+        14px;
+
+    font-size:
+        18px;
+
+    cursor:
+        pointer;
+}
+
+.new-game-btn {
+
+    background:
+        #e89a55;
+
+    color:
+        white;
+
+    padding:
+        13px
+        25px;
+
+    border-radius:
+        14px;
+
+    font-size:
+        18px;
+
+    cursor:
+        pointer;
+}
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+.overlay {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    background:
+        rgba(25,80,110,.45);
+
+    z-index:
+        20;
+
+    display:
+        none;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        20px;
 }
 
 .result-box {
-    background: white;
-    border-radius: 28px;
-    padding: 35px;
-    max-width: 500px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(20,80,110,.3);
+
+    background:
+        white;
+
+    border-radius:
+        28px;
+
+    padding:
+        35px;
+
+    max-width:
+        500px;
+
+    width:
+        100%;
+
+    text-align:
+        center;
+
+    box-shadow:
+        0 15px 40px
+        rgba(20,80,110,.3);
 }
 
 .result-box h2 {
-    font-size: 35px;
-    color: #3193bd;
-    margin-top: 0;
+
+    font-size:
+        38px;
+
+    color:
+        #3193bd;
+
+    margin-top:
+        0;
 }
 
 .result-score {
-    font-size: 27px;
-    color: #ed9b22;
-    margin: 15px;
+
+    font-size:
+        28px;
+
+    color:
+        #ed9b22;
+
+    margin:
+        15px;
 }
 
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
 @media(max-width:600px) {
-    .game { padding-top: 10px; }
-    .panel { padding: 18px 12px; }
-    .snowman-area {
-        height: 300px;
-        transform: scale(.82);
-        margin-top: -20px;
-        margin-bottom: -25px;
+
+    .game {
+        padding-top:
+            10px;
     }
-    .letter-button { width: 37px; height: 42px; font-size: 17px; }
-    .letter-slot { width: 30px; height: 42px; font-size: 25px; }
-    .info-box { padding: 8px 10px; font-size: 14px; }
-    .info-number { font-size: 20px; }
+
+    .snowman-area {
+
+        height:
+            300px;
+
+        transform:
+            scale(.82);
+
+        margin-top:
+            -20px;
+
+        margin-bottom:
+            -25px;
+    }
+
+    .letter-button {
+
+        width:
+            38px;
+
+        height:
+            42px;
+
+        font-size:
+            17px;
+    }
+
+    .letter-slot {
+
+        width:
+            32px;
+
+        height:
+            42px;
+
+        font-size:
+            26px;
+    }
+
+    .info-box {
+
+        min-width:
+            110px;
+
+        padding:
+            8px
+            10px;
+
+        font-size:
+            14px;
+    }
+
+    .score-number,
+    .timer-number,
+    .trials-number,
+    .round-number {
+
+        font-size:
+            20px;
+    }
+
 }
+
 </style>
 </head>
 
+
 <body>
-<div class="snow-container" id="snowContainer"></div>
+
+
+<!-- =========================================================
+     FALLING SNOW
+========================================================= -->
+
+<div
+    class="snow-container"
+    id="snowContainer">
+</div>
+
 
 <div class="game">
-    <h1>☃️ Melting Snowman</h1>
-    <div class="subtitle">Guess the letters before the snowman melts!</div>
 
-    <div id="setupScreen" class="panel">
-        <h2>❄️ Choose Your Game</h2>
 
-        <div class="section-title">Game Mode</div>
-        <div class="mode-buttons">
-            <button class="mode-btn selected" id="manualModeBtn" onclick="selectMode('manual')">✏️ Manual</button>
-            <button class="mode-btn" id="easyModeBtn" onclick="selectMode('easy')">😊 Easy</button>
-            <button class="mode-btn" id="mediumModeBtn" onclick="selectMode('medium')">⭐ Medium</button>
-            <button class="mode-btn" id="hardModeBtn" onclick="selectMode('hard')">🔥 Hard</button>
-        </div>
+<h1>☃️ Melting Snowman</h1>
 
-        <div class="section-title">Word Category</div>
-        <p>Select a category to generate words from that topic only.</p>
-        <select id="categorySelect" onchange="selectCategory(this.value)">
-            <option value="all">All Categories</option>
-            <option value="nouns">Nouns</option>
-            <option value="verbs">Verbs</option>
-            <option value="adjectives">Adjectives</option>
-            <option value="adverbs">Adverbs</option>
-            <option value="pronouns">Pronouns</option>
-            <option value="prepositions">Prepositions</option>
-            <option value="animals">Animals</option>
-            <option value="places">Places</option>
-            <option value="food">Food</option>
-            <option value="school">School</option>
-            <option value="sports">Sports</option>
-            <option value="transport">Transport</option>
-            <option value="nature">Nature</option>
-            <option value="body">Body Parts</option>
-            <option value="feelings">Feelings</option>
-            <option value="home">Home and Furniture</option>
-            <option value="clothing">Clothing</option>
-            <option value="jobs">Jobs and People</option>
-        </select>
-
-        <div id="categoryNote" style="margin-top:10px;color:#50798a;">
-            All Categories: words can come from any topic.
-        </div>
-
-        <div id="manualArea">
-            <div class="section-title">Your Word</div>
-            <p>Type the word your student should guess.</p>
-            <input type="text" id="wordInput" class="word-input"
-                   placeholder="TYPE A WORD" maxlength="20" autocomplete="off">
-            <div class="button-row" style="margin-top:10px;">
-                <button class="small-btn" onclick="deleteLastLetter()">⌫ Delete</button>
-                <button class="small-btn" onclick="clearWord()">Clear</button>
-            </div>
-        </div>
-
-        <div id="autoModeMessage" style="display:none;margin-top:15px;padding:15px;background:#eef9ff;border-radius:15px;">
-            <strong id="autoModeTitle">Easy Mode</strong>
-            <p id="autoModeDescription">The game will choose a word for you.</p>
-        </div>
-
-        <div class="section-title">⏰ Choose Timer</div>
-        <div class="timer-options">
-            <button class="timer-btn" id="timer1" onclick="selectTimer(1)">1 Minute</button>
-            <button class="timer-btn" id="timer2" onclick="selectTimer(2)">2 Minutes</button>
-            <button class="timer-btn" id="timer3" onclick="selectTimer(3)">3 Minutes</button>
-            <button class="timer-btn" id="timer4" onclick="selectTimer(4)">4 Minutes</button>
-            <button class="timer-btn selected" id="timer5" onclick="selectTimer(5)">5 Minutes</button>
-        </div>
-
-        <button class="start-btn" onclick="startGame()">❄️ Start Game ❄️</button>
-    </div>
-
-    <div id="gameScreen">
-        <div class="top-info">
-            <div class="info-box">⭐ Score: <span class="info-number" id="score">0</span></div>
-            <div class="info-box">⏰ Time: <span class="info-number" id="timer">5:00</span></div>
-            <div class="info-box">❄️ Trials Left: <span class="info-number" id="trialsLeft">7</span></div>
-            <div class="info-box">📝 Word: <span class="info-number" id="round">1</span></div>
-        </div>
-
-        <div class="snowman-area">
-            <div class="snow-ground"></div>
-            <div class="snowman stage1" id="snowman">
-                <div class="hat-top"></div>
-                <div class="hat-brim"></div>
-                <div class="head"></div>
-                <div class="eye left"></div>
-                <div class="eye right"></div>
-                <div class="nose"></div>
-                <div class="mouth"></div>
-                <div class="scarf"></div>
-                <div class="scarf-tail"></div>
-                <div class="arm left"></div>
-                <div class="arm right"></div>
-                <div class="body"></div>
-                <div class="snow-button one"></div>
-                <div class="snow-button two"></div>
-                <div class="snow-button three"></div>
-            </div>
-        </div>
-
-        <div class="word-area">
-            <div class="letter-slots" id="letterSlots"></div>
-        </div>
-
-        <div class="alphabet" id="alphabet"></div>
-        <div class="message" id="message">Choose a letter!</div>
-
-        <button class="action-btn" onclick="newGame()">🔄 New Game</button>
-    </div>
+<div class="subtitle">
+    Guess the letters before the snowman melts!
 </div>
 
-<div class="result-overlay" id="resultOverlay">
-    <div class="result-box">
-        <h2 id="resultTitle">Great Job!</h2>
-        <p id="resultMessage"></p>
-        <div class="result-score">⭐ Score: <span id="finalScore">0</span></div>
-        <button class="start-btn" onclick="closeResult()">Continue ➜</button>
-        <button class="action-btn" onclick="newGame()">New Game</button>
-    </div>
+
+<!-- =========================================================
+     SETUP SCREEN
+========================================================= -->
+
+<div
+    id="setupScreen"
+    class="panel">
+
+
+<h2>❄️ Choose Your Game</h2>
+
+
+<div class="mode-title">
+    Game Mode
 </div>
+
+
+<div class="mode-buttons">
+
+<button
+    class="mode-btn selected"
+    id="manualModeBtn"
+    onclick="selectMode('manual')">
+
+    ✏️ Manual
+
+</button>
+
+
+<button
+    class="mode-btn"
+    id="easyModeBtn"
+    onclick="selectMode('easy')">
+
+    😊 Easy
+
+</button>
+
+
+<button
+    class="mode-btn"
+    id="mediumModeBtn"
+    onclick="selectMode('medium')">
+
+    ⭐ Medium
+
+</button>
+
+
+<button
+    class="mode-btn"
+    id="hardModeBtn"
+    onclick="selectMode('hard')">
+
+    🔥 Hard
+
+</button>
+
+</div>
+
+
+<!-- MANUAL INPUT -->
+
+<div
+    class="manual-area"
+    id="manualArea">
+
+<p>
+    Type the word your student should guess.
+</p>
+
+
+<input
+    type="text"
+    id="wordInput"
+    class="word-input"
+    placeholder="TYPE A WORD"
+    maxlength="20"
+    autocomplete="off">
+
+
+<div class="button-row">
+
+<button
+    class="small-btn"
+    onclick="deleteLastLetter()">
+
+    ⌫ Delete
+
+</button>
+
+
+<button
+    class="small-btn"
+    onclick="clearWord()">
+
+    Clear
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- CATEGORY FILTER FOR AUTOMATIC WORDS -->
+<div class="category-area" id="categoryArea" style="display:none;">
+    <label for="wordCategory">📚 Choose a word category</label>
+    <select id="wordCategory" class="category-select">
+        <option value="all">🎲 Any Category</option>
+        <option value="noun">🧩 Nouns</option>
+        <option value="verb">🏃 Verbs / Actions</option>
+        <option value="adjective">🎨 Adjectives / Describing Words</option>
+        <option value="animal">🐾 Animals</option>
+        <option value="place">🏫 Places</option>
+        <option value="food">🍎 Food</option>
+        <option value="school">✏️ School</option>
+        <option value="nature">🌳 Nature</option>
+        <option value="transport">🚗 Transport</option>
+        <option value="object">🧸 Everyday Objects</option>
+    </select>
+    <p class="category-help">The random word will always match the category you choose.</p>
+</div>
+
+
+<!-- AUTO MODE MESSAGE -->
+
+<div
+    id="autoModeMessage"
+    style="
+        display:none;
+        margin-top:20px;
+        padding:15px;
+        background:#eef9ff;
+        border-radius:15px;
+    ">
+
+    <strong id="autoModeTitle">
+        Easy Mode
+    </strong>
+
+    <br>
+
+    The game will choose a word for you.
+
+</div>
+
+
+<!-- TIMER -->
+
+<h3 class="timer-heading">
+    ⏰ Choose Timer
+</h3>
+
+
+<div class="timer-options">
+
+
+<button
+    class="timer-btn"
+    id="timer1"
+    onclick="selectTimer(1)">
+
+    1 Minute
+
+</button>
+
+
+<button
+    class="timer-btn"
+    id="timer2"
+    onclick="selectTimer(2)">
+
+    2 Minutes
+
+</button>
+
+
+<button
+    class="timer-btn"
+    id="timer3"
+    onclick="selectTimer(3)">
+
+    3 Minutes
+
+</button>
+
+
+<button
+    class="timer-btn"
+    id="timer4"
+    onclick="selectTimer(4)">
+
+    4 Minutes
+
+</button>
+
+
+<button
+    class="timer-btn selected"
+    id="timer5"
+    onclick="selectTimer(5)">
+
+    5 Minutes
+
+</button>
+
+
+</div>
+
+
+<button
+    class="start-btn"
+    onclick="startGame()">
+
+    ❄️ Start Game ❄️
+
+</button>
+
+
+</div>
+
+
+<!-- =========================================================
+     GAME SCREEN
+========================================================= -->
+
+<div
+    id="gameScreen">
+
+
+<!-- TOP INFORMATION -->
+
+<div class="top-info">
+
+
+<div class="info-box">
+
+    ⭐ Score:
+    <span
+        class="score-number"
+        id="score">
+
+        0
+
+    </span>
+
+</div>
+
+
+<div class="info-box">
+
+    ⏰ Time:
+    <span
+        class="timer-number"
+        id="timer">
+
+        5:00
+
+    </span>
+
+</div>
+
+
+<div class="info-box">
+
+    ❄️ Trials Left:
+    <span
+        class="trials-number"
+        id="trialsLeft">
+
+        7
+
+    </span>
+
+</div>
+
+
+<div class="info-box">
+
+    📝 Word:
+    <span
+        class="round-number"
+        id="round">
+
+        1
+
+    </span>
+
+</div>
+
+
+</div>
+
+
+<!-- SNOWMAN -->
+
+<div class="snowman-area">
+
+
+<div
+    class="snowman stage1"
+    id="snowman">
+
+
+<div class="hat-top"></div>
+
+<div class="hat-brim"></div>
+
+
+<div class="head"></div>
+
+
+<div class="eye left"></div>
+
+<div class="eye right"></div>
+
+
+<div class="nose"></div>
+
+<div class="mouth"></div>
+
+
+<div class="scarf"></div>
+
+<div class="scarf-tail"></div>
+
+
+<div class="arm left"></div>
+
+<div class="arm right"></div>
+
+
+<div class="body"></div>
+
+
+<div class="snow-button one"></div>
+
+<div class="snow-button two"></div>
+
+<div class="snow-button three"></div>
+
+
+</div>
+
+
+<div class="snow-ground"></div>
+
+
+</div>
+
+
+<!-- WORD -->
+
+<div class="word-area">
+
+<div
+    class="word-display"
+    id="wordDisplay">
+</div>
+
+</div>
+
+
+<div
+    class="message"
+    id="message">
+
+    Choose a letter!
+
+</div>
+
+
+<!-- ALPHABET -->
+
+<div class="alphabet-title">
+
+    Choose a letter:
+
+</div>
+
+
+<div
+    class="alphabet"
+    id="alphabet">
+</div>
+
+
+<!-- CONTROLS -->
+
+<div class="controls">
+
+
+<button
+    class="next-btn"
+    onclick="nextWord()">
+
+    ➡️ Next Word
+
+</button>
+
+
+<button
+    class="new-game-btn"
+    onclick="newGame()">
+
+    🔄 New Game
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =========================================================
+     RESULT
+========================================================= -->
+
+<div
+    class="overlay"
+    id="resultOverlay">
+
+
+<div class="result-box">
+
+
+<h2 id="resultTitle">
+    🎉 Great Job!
+</h2>
+
+
+<div class="result-score">
+
+    ⭐ Score:
+    <span id="finalScore">
+        0
+    </span>
+
+</div>
+
+
+<p id="resultMessage">
+    You saved the snowman!
+</p>
+
+
+<button
+    class="start-btn"
+    onclick="closeResult()">
+
+    ➡️ Next Word
+
+</button>
+
+
+</div>
+
+
+</div>
+
 
 <script>
-/* =====================================================
-   GAME SETTINGS
-===================================================== */
-const MAX_TRIALS = 7;
+
+/* =========================================================
+   GAME VARIABLES
+========================================================= */
 
 let gameMode = "manual";
-let selectedCategory = "all";
-let selectedMinutes = 5;
-let timeLeft = 300;
-let timerInterval = null;
-let score = 0;
-let round = 1;
+
 let secretWord = "";
+
 let guessedLetters = [];
+
 let wrongGuesses = 0;
+
+const MAX_TRIALS = 7;
+
+let score = 0;
+
+let round = 1;
+
+let selectedMinutes = 5;
+
+let timeLeft = 300;
+
+let timerInterval = null;
+
 let gameFinished = false;
 
-/* =====================================================
-   GENERAL WORD LISTS BY DIFFICULTY
-===================================================== */
+
+/* =========================================================
+   WORD LISTS
+========================================================= */
+
 const easyWords = [
-    "CAT","DOG","SUN","MOON","STAR","FISH","BIRD","TREE",
-    "BOOK","BALL","CAKE","MILK","APPLE","HOUSE","HAPPY",
-    "GREEN","BLUE","SMILE","CLOUD","TRAIN","SCHOOL","WATER",
-    "TIGER","HORSE","MOUSE","PANDA","PIZZA","ROBOT","SNAKE",
+
+    "CAT",
+    "DOG",
+    "SUN",
+    "MOON",
+    "STAR",
+    "FISH",
+    "BIRD",
+    "TREE",
+    "BOOK",
+    "BALL",
+    "CAKE",
+    "MILK",
+    "APPLE",
+    "HOUSE",
+    "HAPPY",
+    "GREEN",
+    "BLUE",
+    "SMILE",
+    "CLOUD",
+    "TRAIN",
+    "SCHOOL",
+    "WATER",
+    "TIGER",
+    "HORSE",
+    "MOUSE",
+    "PANDA",
+    "PIZZA",
+    "ROBOT",
+    "SNAKE",
     "FLOWER"
+
 ];
+
 
 const mediumWords = [
-    "ELEPHANT","BUTTERFLY","DINOSAUR","RAINBOW","SANDWICH",
-    "TEACHER","LIBRARY","PLAYGROUND","BICYCLE","MOUNTAIN",
-    "CHOCOLATE","AIRPLANE","SUNSHINE","PENGUIN","TURTLE",
-    "GIRAFFE","JELLYFISH","PUMPKIN","UNICORN","SNOWFLAKE",
-    "CUPCAKE","TREASURE","BACKPACK","FRIENDSHIP","RAINCOAT"
+
+    "ELEPHANT",
+    "BUTTERFLY",
+    "DINOSAUR",
+    "RAINBOW",
+    "SANDWICH",
+    "TEACHER",
+    "LIBRARY",
+    "PLAYGROUND",
+    "BICYCLE",
+    "MOUNTAIN",
+    "CHOCOLATE",
+    "AIRPLANE",
+    "SUNSHINE",
+    "PENGUIN",
+    "TURTLE",
+    "GIRAFFE",
+    "JELLYFISH",
+    "PUMPKIN",
+    "UNICORN",
+    "SNOWFLAKE",
+    "CUPCAKE",
+    "TREASURE",
+    "BACKPACK",
+    "FRIENDSHIP",
+    "RAINCOAT"
+
 ];
+
 
 const hardWords = [
-    "ADVENTURE","IMAGINATION","DISCOVERY","CELEBRATION",
-    "CREATIVE","EXPLORATION","ENVIRONMENT","ASTRONAUT",
-    "COMMUNICATION","INDEPENDENT","KNOWLEDGE","BEAUTIFUL",
-    "WONDERFUL","EXPERIMENT","RESPONSIBILITY","CURIOSITY",
-    "ADVENTUROUS","IMAGINATIVE","CHALLENGE"
+
+    "ADVENTURE",
+    "IMAGINATION",
+    "DISCOVERY",
+    "CHOCOLATE",
+    "BUTTERFLY",
+    "CELEBRATION",
+    "CREATIVE",
+    "EXPLORATION",
+    "ENVIRONMENT",
+    "ASTRONAUT",
+    "COMMUNICATION",
+    "INDEPENDENT",
+    "KNOWLEDGE",
+    "BEAUTIFUL",
+    "DINOSAUR",
+    "WONDERFUL",
+    "PLAYGROUND",
+    "EXPERIMENT",
+    "FRIENDSHIP",
+    "RESPONSIBILITY",
+    "CURIOSITY",
+    "ADVENTUROUS",
+    "IMAGINATIVE",
+    "CHALLENGE"
+
 ];
 
-/* =====================================================
-   CATEGORY WORD BANKS
-   Each category has its own separate list.
-===================================================== */
-const categoryWords = {
-    nouns: [
-        "TABLE","CHAIR","PENCIL","WINDOW","GARDEN","BOTTLE",
-        "COMPUTER","UMBRELLA","TEACHER","STUDENT","MOUNTAIN",
-        "RIVER","VILLAGE","PICTURE","BICYCLE","FAMILY",
-        "ELEPHANT","BUTTERFLY","LIBRARY","BACKPACK"
-    ],
 
-    verbs: [
-        "RUN","JUMP","WALK","TALK","READ","WRITE","SING",
-        "DANCE","SWIM","CLIMB","THINK","LAUGH","WHISPER",
-        "EXPLORE","DISCOVER","CREATE","IMAGINE","CELEBRATE",
-        "LISTEN","PAINT"
-    ],
+/* =========================================================
+   FALLING SNOW
+========================================================= */
 
-    adjectives: [
-        "BIG","SMALL","TALL","SHORT","HAPPY","SAD","ANGRY",
-        "FAST","SLOW","STRONG","WEAK","BRIGHT","DARK",
-        "BEAUTIFUL","COLOURFUL","HUNGRY","THIRSTY","GENTLE",
-        "WONDERFUL","CURIOUS"
-    ],
-
-    adverbs: [
-        "QUICKLY","SLOWLY","HAPPILY","SADLY","CAREFULLY",
-        "LOUDLY","QUIETLY","EASILY","BADLY","WELL",
-        "BRAVELY","KINDLY","SOFTLY","LATER","TODAY",
-        "ALWAYS","NEVER","OFTEN","SOON","OUTSIDE"
-    ],
-
-    pronouns: [
-        "HE","SHE","THEY","WE","YOU","IT","THEM","US",
-        "HIM","HER","I","ME","MYSELF","YOURSELF","OURS",
-        "THEIRS","HERS","HIS","WHO","EVERYONE"
-    ],
-
-    prepositions: [
-        "IN","ON","UNDER","OVER","BEHIND","BESIDE","BETWEEN",
-        "ABOVE","BELOW","INSIDE","OUTSIDE","NEAR","THROUGH",
-        "ACROSS","AROUND","BEFORE","AFTER","DURING","TOWARD",
-        "AGAINST"
-    ],
-
-    animals: [
-        "CAT","DOG","BIRD","FISH","TIGER","HORSE","MOUSE",
-        "PANDA","SNAKE","RABBIT","ELEPHANT","BUTTERFLY",
-        "DINOSAUR","PENGUIN","TURTLE","GIRAFFE","JELLYFISH",
-        "MONKEY","CROCODILE","KANGAROO","DOLPHIN","ZEBRA",
-        "LION","HAMSTER","OCTOPUS","EAGLE","WHALE","FOX"
-    ],
-
-    places: [
-        "SCHOOL","BEACH","AIRPORT","LIBRARY","MUSEUM",
-        "HOSPITAL","RESTAURANT","PLAYGROUND","SUPERMARKET",
-        "PARK","ZOO","CINEMA","BAKERY","MARKET","GARDEN",
-        "MOUNTAIN","VILLAGE","CITY","FARM","HOTEL",
-        "STADIUM","POOL","BANK","CHURCH","MALL","FOREST",
-        "ISLAND","STATION","CLASSROOM","MUSEUM"
-    ],
-
-    food: [
-        "APPLE","PIZZA","BURGER","BANANA","SANDWICH",
-        "CHOCOLATE","PUMPKIN","COOKIE","NOODLES","CHEESE",
-        "CHICKEN","ORANGE","GRAPES","WATERMELON","CARROT",
-        "POTATO","PANCAKE","CUPCAKE","SPAGHETTI","POPCORN",
-        "YOGURT","PINEAPPLE","STRAWBERRY","BROCCOLI"
-    ],
-
-    school: [
-        "PENCIL","RULER","ERASER","NOTEBOOK","BACKPACK",
-        "TEACHER","STUDENT","CLASSROOM","LIBRARY","LESSON",
-        "HOMEWORK","SCIENCE","HISTORY","MATHS","ENGLISH",
-        "COMPUTER","WHITEBOARD","SCISSORS","CRAYON","MARKER",
-        "UNIFORM","LUNCHBOX","RECESS","ASSEMBLY"
-    ],
-
-    sports: [
-        "SOCCER","TENNIS","BASKETBALL","BADMINTON","SWIMMING",
-        "VOLLEYBALL","BASEBALL","FOOTBALL","GOLF","BOXING",
-        "CYCLING","RUNNING","SKATING","GYMNASTICS","RUGBY",
-        "HOCKEY","SURFING","ARCHERY","KARATE","WRESTLING"
-    ],
-
-    transport: [
-        "CAR","BUS","TRAIN","TRUCK","BICYCLE","AIRPLANE",
-        "HELICOPTER","MOTORCYCLE","BOAT","SHIP","SCOOTER",
-        "SUBWAY","TAXI","AMBULANCE","TRACTOR","ROCKET",
-        "TRAM","FERRY","VAN","SCHOOLBUS"
-    ],
-
-    nature: [
-        "SUN","MOON","STAR","TREE","FLOWER","CLOUD","RIVER",
-        "OCEAN","MOUNTAIN","FOREST","RAINBOW","SNOWFLAKE",
-        "THUNDER","LIGHTNING","VOLCANO","WATERFALL","DESERT",
-        "ISLAND","RAIN","WIND","LEAF","GRASS","PLANET","EARTH"
-    ],
-
-    body: [
-        "HEAD","HAIR","EYES","NOSE","MOUTH","TEETH","EAR",
-        "NECK","SHOULDER","ELBOW","HAND","FINGER","THUMB",
-        "KNEE","ANKLE","FOOT","TOE","STOMACH","BACK","HEART",
-        "BRAIN","LUNGS","TONGUE","WRIST"
-    ],
-
-    feelings: [
-        "HAPPY","SAD","ANGRY","EXCITED","SCARED","WORRIED",
-        "NERVOUS","PROUD","SURPRISED","BORED","LONELY",
-        "CALM","JEALOUS","CONFUSED","TIRED","HOPEFUL",
-        "GRATEFUL","DISAPPOINTED","CURIOUS","RELAXED"
-    ],
-
-    home: [
-        "TABLE","CHAIR","SOFA","BED","PILLOW","BLANKET",
-        "WINDOW","DOOR","KITCHEN","BEDROOM","BATHROOM",
-        "MIRROR","LAMP","CUPBOARD","FRIDGE","OVEN",
-        "CARPET","CURTAIN","CLOCK","BOOKSHELF","TELEVISION",
-        "WARDROBE","SPOON","PLATE"
-    ],
-
-    clothing: [
-        "SHIRT","TROUSERS","DRESS","SKIRT","JACKET","COAT",
-        "SOCKS","SHOES","SANDALS","HAT","CAP","SCARF",
-        "GLOVES","BELT","UNIFORM","SHORTS","SWEATER",
-        "RAINCOAT","BOOTS","PYJAMAS","SNEAKERS"
-    ],
-
-    jobs: [
-        "TEACHER","DOCTOR","NURSE","PILOT","CHEF","FARMER",
-        "DENTIST","FIREFIGHTER","POLICE","ARTIST","SINGER",
-        "DANCER","SCIENTIST","ENGINEER","ASTRONAUT","BAKER",
-        "DRIVER","VET","BUILDER","PHOTOGRAPHER","ACTOR"
-    ]
-};
-
-const categoryLabels = {
-    all: "All Categories",
-    nouns: "Nouns",
-    verbs: "Verbs",
-    adjectives: "Adjectives",
-    adverbs: "Adverbs",
-    pronouns: "Pronouns",
-    prepositions: "Prepositions",
-    animals: "Animals",
-    places: "Places",
-    food: "Food",
-    school: "School",
-    sports: "Sports",
-    transport: "Transport",
-    nature: "Nature",
-    body: "Body Parts",
-    feelings: "Feelings",
-    home: "Home and Furniture",
-    clothing: "Clothing",
-    jobs: "Jobs and People"
-};
-
-/* =====================================================
-   SNOW EFFECT
-===================================================== */
 function createSnow() {
-    const container = document.getElementById("snowContainer");
 
-    for (let i = 0; i < 45; i++) {
-        const snow = document.createElement("div");
-        snow.className = "snowflake";
-        snow.textContent = Math.random() > .5 ? "❄" : "•";
-        snow.style.left = Math.random() * 100 + "%";
-        snow.style.fontSize = (Math.random() * 14 + 8) + "px";
-        snow.style.animationDuration = (Math.random() * 7 + 6) + "s";
-        snow.style.animationDelay = (Math.random() * 8) + "s";
+    const container =
+        document.getElementById(
+            "snowContainer"
+        );
+
+    for (
+        let i = 0;
+        i < 45;
+        i++
+    ) {
+
+        const snow =
+            document.createElement("div");
+
+        snow.className =
+            "snowflake";
+
+        snow.textContent =
+            Math.random() > .5
+                ? "❄"
+                : "•";
+
+        snow.style.left =
+            Math.random() * 100 + "%";
+
+        snow.style.fontSize =
+            (Math.random() * 14 + 8)
+            + "px";
+
+        snow.style.animationDuration =
+            (Math.random() * 7 + 6)
+            + "s";
+
+        snow.style.animationDelay =
+            (Math.random() * 8)
+            + "s";
+
         container.appendChild(snow);
     }
 }
+
 createSnow();
 
-/* =====================================================
-   MODE AND CATEGORY SELECTION
-===================================================== */
+
+/* =========================================================
+   MODE SELECTION
+========================================================= */
+
 function selectMode(mode) {
+
     gameMode = mode;
 
-    document.querySelectorAll(".mode-btn").forEach(button => {
-        button.classList.remove("selected");
-    });
+    document
+        .querySelectorAll(".mode-btn")
+        .forEach(button => {
 
-    const buttonId = {
-        manual: "manualModeBtn",
-        easy: "easyModeBtn",
-        medium: "mediumModeBtn",
-        hard: "hardModeBtn"
-    }[mode];
+            button.classList.remove(
+                "selected"
+            );
 
-    document.getElementById(buttonId).classList.add("selected");
+        });
 
-    const manual = mode === "manual";
-    document.getElementById("manualArea").style.display = manual ? "block" : "none";
-    document.getElementById("autoModeMessage").style.display = manual ? "none" : "block";
 
-    document.getElementById("autoModeTitle").textContent =
-        mode.charAt(0).toUpperCase() + mode.slice(1) + " Mode";
+    if (mode === "manual") {
 
-    updateModeDescription();
-}
+        document
+            .getElementById(
+                "manualModeBtn"
+            )
+            .classList.add("selected");
 
-function selectCategory(category) {
-    selectedCategory = category;
+        document
+            .getElementById(
+                "manualArea"
+            )
+            .style.display = "block";
 
-    // A specific category requires the automatic word generator.
-    if (category !== "all" && gameMode === "manual") {
-        selectMode("easy");
+        document
+            .getElementById(
+                "autoModeMessage"
+            )
+            .style.display = "none";
+
+        document.getElementById("categoryArea").style.display = "none";
+
     }
 
-    const note = document.getElementById("categoryNote");
+    else {
 
-    if (category === "all") {
-        note.textContent = "All Categories: words can come from any topic.";
-    } else {
-        note.textContent = "Selected: " + categoryLabels[category] +
-            ". Every new word will come from this category only.";
+        document
+            .getElementById(
+                mode + "ModeBtn"
+            )
+            .classList.add("selected");
+
+        document
+            .getElementById(
+                "manualArea"
+            )
+            .style.display = "none";
+
+        document
+            .getElementById(
+                "autoModeMessage"
+            )
+            .style.display = "block";
+
+        document.getElementById("categoryArea").style.display = "block";
+
+
+        let title = "";
+
+        if (mode === "easy") {
+            title = "😊 Easy Mode";
+        }
+
+        if (mode === "medium") {
+            title = "⭐ Medium Mode";
+        }
+
+        if (mode === "hard") {
+            title = "🔥 Hard Mode";
+        }
+
+        document
+            .getElementById(
+                "autoModeTitle"
+            )
+            .textContent = title;
+
     }
 
-    updateModeDescription();
 }
 
-function updateModeDescription() {
-    const description = document.getElementById("autoModeDescription");
 
-    if (selectedCategory !== "all") {
-        description.textContent =
-            "Words will be selected only from: " + categoryLabels[selectedCategory] + ".";
-    } else {
-        description.textContent =
-            "The game will choose a word based on the selected difficulty.";
-    }
-}
+/* =========================================================
+   TIMER SELECTION
+========================================================= */
 
 function selectTimer(minutes) {
-    selectedMinutes = minutes;
 
-    document.querySelectorAll(".timer-btn").forEach(button => {
-        button.classList.remove("selected");
-    });
+    selectedMinutes =
+        minutes;
 
-    document.getElementById("timer" + minutes).classList.add("selected");
+    document
+        .querySelectorAll(
+            ".timer-btn"
+        )
+        .forEach(btn => {
+
+            btn.classList.remove(
+                "selected"
+            );
+
+        });
+
+    document
+        .getElementById(
+            "timer" + minutes
+        )
+        .classList.add(
+            "selected"
+        );
 }
 
-/* =====================================================
-   MANUAL WORD CONTROLS
-===================================================== */
+
+/* =========================================================
+   MANUAL INPUT
+========================================================= */
+
+document
+    .getElementById("wordInput")
+    .addEventListener(
+        "input",
+        function() {
+
+            this.value =
+                this.value
+                    .replace(
+                        /[^a-zA-Z]/g,
+                        ""
+                    )
+                    .toUpperCase();
+
+        }
+    );
+
+
 function deleteLastLetter() {
-    const input = document.getElementById("wordInput");
-    input.value = input.value.slice(0, -1);
+
+    const input =
+        document.getElementById(
+            "wordInput"
+        );
+
+    input.value =
+        input.value.slice(
+            0,
+            -1
+        );
+
     input.focus();
 }
 
+
 function clearWord() {
-    document.getElementById("wordInput").value = "";
-    document.getElementById("wordInput").focus();
+
+    document
+        .getElementById(
+            "wordInput"
+        )
+        .value = "";
+
+    document
+        .getElementById(
+            "wordInput"
+        )
+        .focus();
 }
 
-/* =====================================================
-   RANDOM WORD GENERATOR
-===================================================== */
+
+/* =========================================================
+   GET AUTOMATIC WORD
+========================================================= */
+
+const categorizedWords = [
+    // Nouns: animals
+    ...["CAT","DOG","BIRD","FISH","FROG","LION","TIGER","PANDA","HORSE","MOUSE","SNAKE","RABBIT","MONKEY","GIRAFFE","ELEPHANT","BUTTERFLY","DINOSAUR","PENGUIN","TURTLE","JELLYFISH"].map((word,i)=>({word,level:i<10?"easy":i<16?"medium":"hard",tags:["noun","animal"]})),
+    // Nouns: places
+    ...["HOME","PARK","SHOP","SCHOOL","BEACH","ZOO","FARM","LIBRARY","HOSPITAL","PLAYGROUND","MUSEUM","MOUNTAIN","RESTAURANT","AIRPORT","AQUARIUM"].map((word,i)=>({word,level:i<6?"easy":i<11?"medium":"hard",tags:["noun","place",...( ["SCHOOL","LIBRARY","PLAYGROUND"].includes(word)?["school"]:[])]})),
+    // Nouns: food
+    ...["CAKE","MILK","RICE","BREAD","APPLE","PIZZA","PIZZA","GRAPE","BANANA","COOKIE","SANDWICH","NOODLES","CHOCOLATE","PUMPKIN","STRAWBERRY","WATERMELON"].map((word,i)=>({word,level:i<7?"easy":i<12?"medium":"hard",tags:["noun","food"]})),
+    // Nature and everyday objects
+    ...["SUN","MOON","STAR","TREE","FLOWER","CLOUD","RAIN","SNOW","RIVER","OCEAN","RAINBOW","SNOWFLAKE","MOUNTAIN","FOREST","PLANET","BOOK","BALL","CUP","CHAIR","TABLE","PENCIL","BACKPACK","UMBRELLA","BICYCLE","AIRPLANE","TRAIN","ROBOT","TOOTHBRUSH"].map((word,i)=>({word,level:i<12?"easy":i<21?"medium":"hard",tags:["noun",...( ["SUN","MOON","STAR","TREE","FLOWER","CLOUD","RAIN","SNOW","RIVER","OCEAN","RAINBOW","SNOWFLAKE","MOUNTAIN","FOREST","PLANET"].includes(word)?["nature"]:[]),...( ["BICYCLE","AIRPLANE","TRAIN"].includes(word)?["transport"]:[]),...( ["BOOK","PENCIL","BACKPACK"].includes(word)?["school","object"]:["object"])]})),
+    // Verbs / actions
+    ...["RUN","JUMP","SIT","EAT","DRINK","READ","WRITE","SING","DANCE","SWIM","CLIMB","LAUGH","COOK","PAINT","DRAW","LISTEN","WHISPER","EXPLORE","DISCOVER","CELEBRATE"].map((word,i)=>({word,level:i<8?"easy":i<15?"medium":"hard",tags:["verb"]})),
+    // Adjectives / describing words
+    ...["BIG","SMALL","HOT","COLD","FAST","SLOW","HAPPY","SAD","KIND","SOFT","HARD","BRIGHT","DARK","TALL","SHORT","STRONG","CUTE","SMART","BEAUTIFUL","WONDERFUL","IMAGINATIVE","ADVENTUROUS"].map((word,i)=>({word,level:i<10?"easy":i<17?"medium":"hard",tags:["adjective"]}))
+];
+
 function getRandomWord() {
-    let wordList;
+    const selectedCategory = document.getElementById("wordCategory").value;
+    const difficulty = gameMode === "easy" ? "easy" : gameMode === "medium" ? "medium" : "hard";
 
-    // IMPORTANT:
-    // A selected category always takes priority over difficulty.
-    // For example, Places can never randomly produce BIRD.
-    if (selectedCategory !== "all") {
-        wordList = categoryWords[selectedCategory];
+    // Filter by BOTH difficulty and category. This prevents unrelated words
+    // (for example, BIRD) from appearing when Places is selected.
+    let matches = categorizedWords.filter(item =>
+        item.level === difficulty &&
+        (selectedCategory === "all" || item.tags.includes(selectedCategory))
+    );
 
-        if (!Array.isArray(wordList) || wordList.length === 0) {
-            throw new Error("No words available for category: " + selectedCategory);
-        }
-    } else if (gameMode === "easy") {
-        wordList = easyWords;
-    } else if (gameMode === "medium") {
-        wordList = mediumWords;
-    } else {
-        wordList = hardWords;
+    // If a category has no words at the selected difficulty, use words from
+    // that same category at any difficulty rather than breaking the category.
+    if (matches.length === 0) {
+        matches = categorizedWords.filter(item =>
+            selectedCategory === "all" || item.tags.includes(selectedCategory)
+        );
     }
 
-    return wordList[Math.floor(Math.random() * wordList.length)];
+    if (matches.length === 0) {
+        alert("There are no words in this category yet. Please choose another category.");
+        return "SNOW";
+    }
+
+    return matches[Math.floor(Math.random() * matches.length)].word;
 }
 
-/* =====================================================
-   START GAME
-===================================================== */
-function startGame() {
-    if (gameMode === "manual") {
-        const input = document.getElementById("wordInput");
-        const word = input.value.trim().toUpperCase();
 
-        if (!word || !/^[A-Z]+$/.test(word)) {
-            alert("Please type a word using English letters only.");
+/* =========================================================
+   START GAME
+========================================================= */
+
+function startGame() {
+
+    if (gameMode === "manual") {
+
+        const input =
+            document.getElementById(
+                "wordInput"
+            );
+
+        const word =
+            input.value
+                .trim()
+                .toUpperCase();
+
+
+        if (!word) {
+
+            alert(
+                "Please type a word first!"
+            );
+
             input.focus();
+
             return;
         }
 
-        secretWord = word;
-    } else {
-        secretWord = getRandomWord();
+        secretWord =
+            word;
+
     }
 
+    else {
+
+        secretWord =
+            getRandomWord();
+
+    }
+
+
     guessedLetters = [];
+
     wrongGuesses = 0;
+
     gameFinished = false;
-    timeLeft = selectedMinutes * 60;
 
-    document.getElementById("setupScreen").style.display = "none";
-    document.getElementById("gameScreen").style.display = "block";
+    timeLeft =
+        selectedMinutes * 60;
 
-    document.getElementById("round").textContent = round;
+
+    document
+        .getElementById(
+            "setupScreen"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "gameScreen"
+        )
+        .style.display =
+        "block";
+
+
+    document
+        .getElementById(
+            "round"
+        )
+        .textContent =
+        round;
+
 
     updateTimerDisplay();
+
     updateTrials();
+
     createAlphabet();
+
     displayWord();
+
     updateSnowman();
-    showMessage("Choose a letter!", "");
+
+    showMessage(
+        "Choose a letter!",
+        ""
+    );
 
     startTimer();
 }
 
-/* =====================================================
+
+/* =========================================================
    TIMER
-===================================================== */
+========================================================= */
+
 function startTimer() {
-    clearInterval(timerInterval);
 
-    timerInterval = setInterval(() => {
-        if (gameFinished) {
-            clearInterval(timerInterval);
-            return;
-        }
+    clearInterval(
+        timerInterval
+    );
 
-        timeLeft--;
-        updateTimerDisplay();
 
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            timeUp();
-        }
-    }, 1000);
+    timerInterval =
+        setInterval(
+            function() {
+
+                if (
+                    gameFinished
+                ) {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+                    return;
+                }
+
+
+                timeLeft--;
+
+                updateTimerDisplay();
+
+
+                if (
+                    timeLeft <= 0
+                ) {
+
+                    clearInterval(
+                        timerInterval
+                    );
+
+                    timeUp();
+
+                }
+
+            },
+            1000
+        );
 }
+
 
 function updateTimerDisplay() {
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
 
-    document.getElementById("timer").textContent =
-        minutes + ":" + String(seconds).padStart(2, "0");
+    const minutes =
+        Math.floor(
+            timeLeft / 60
+        );
+
+    const seconds =
+        timeLeft % 60;
+
+
+    document
+        .getElementById(
+            "timer"
+        )
+        .textContent =
+        minutes
+        + ":"
+        + String(seconds)
+            .padStart(2, "0");
 }
 
-function timeUp() {
-    if (gameFinished) return;
 
-    gameFinished = true;
+function timeUp() {
+
+    gameFinished =
+        true;
+
     revealWord();
+
 
     showResult(
         "⏰ Time's Up!",
-        "The word was " + secretWord + ". Keep practising!",
+        "The snowman needs a little help!",
         false
     );
 }
 
-/* =====================================================
-   TRIALS AND ALPHABET
-===================================================== */
-function updateTrials() {
-    const trialsLeft = MAX_TRIALS - wrongGuesses;
-    const element = document.getElementById("trialsLeft");
 
-    element.textContent = trialsLeft;
-    element.style.color = trialsLeft <= 2 ? "#d85d69" : "#4b9bbd";
+/* =========================================================
+   TRIALS
+========================================================= */
+
+function updateTrials() {
+
+    const trialsLeft =
+        MAX_TRIALS -
+        wrongGuesses;
+
+
+    document
+        .getElementById(
+            "trialsLeft"
+        )
+        .textContent =
+        trialsLeft;
+
+
+    if (
+        trialsLeft <= 2
+    ) {
+
+        document
+            .getElementById(
+                "trialsLeft"
+            )
+            .style.color =
+            "#d85d69";
+
+    }
+
+    else {
+
+        document
+            .getElementById(
+                "trialsLeft"
+            )
+            .style.color =
+            "#4b9bbd";
+
+    }
 }
+
+
+/* =========================================================
+   ALPHABET
+========================================================= */
 
 function createAlphabet() {
-    const alphabet = document.getElementById("alphabet");
+
+    const alphabet =
+        document.getElementById(
+            "alphabet"
+        );
+
     alphabet.innerHTML = "";
 
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").forEach(letter => {
-        const button = document.createElement("button");
-        button.className = "letter-button";
-        button.textContent = letter;
-        button.id = "letter-" + letter;
-        button.onclick = () => guessLetter(letter);
-        alphabet.appendChild(button);
-    });
+
+    const letters =
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+
+    for (
+        let letter of letters
+    ) {
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.className =
+            "letter-button";
+
+
+        button.textContent =
+            letter;
+
+
+        button.dataset.letter =
+            letter;
+
+
+        button.onclick =
+            function() {
+
+                chooseLetter(
+                    letter,
+                    button
+                );
+
+            };
+
+
+        alphabet.appendChild(
+            button
+        );
+
+    }
 }
 
-function guessLetter(letter) {
-    if (gameFinished || guessedLetters.includes(letter)) return;
 
-    guessedLetters.push(letter);
+/* =========================================================
+   CHOOSE LETTER
+========================================================= */
 
-    const button = document.getElementById("letter-" + letter);
-    if (button) button.disabled = true;
+function chooseLetter(
+    letter,
+    button
+) {
 
-    if (secretWord.includes(letter)) {
-        showMessage("✅ Great! " + letter + " is in the word.", "good");
+    if (gameFinished)
+        return;
+
+
+    if (
+        guessedLetters.includes(
+            letter
+        )
+    )
+        return;
+
+
+    guessedLetters.push(
+        letter
+    );
+
+
+    button.disabled =
+        true;
+
+
+    if (
+        secretWord.includes(
+            letter
+        )
+    ) {
+
+        button.classList.add(
+            "correct"
+        );
+
+
+        let occurrences =
+            0;
+
+
+        for (
+            let char of secretWord
+        ) {
+
+            if (
+                char === letter
+            ) {
+
+                occurrences++;
+
+            }
+
+        }
+
+
+        score +=
+            occurrences;
+
+
+        document
+            .getElementById(
+                "score"
+            )
+            .textContent =
+            score;
+
+
         displayWord();
 
-        if ([...secretWord].every(char => guessedLetters.includes(char))) {
-            winGame();
-        }
-    } else {
-        wrongGuesses++;
-        updateTrials();
-        updateSnowman();
-        showMessage("❄️ No " + letter + ". Try another letter!", "bad");
 
-        if (wrongGuesses >= MAX_TRIALS) {
-            loseGame();
+        showMessage(
+            "⭐ Great job! You found " +
+            occurrences +
+            " letter" +
+            (
+                occurrences > 1
+                    ? "s!"
+                    : "!"
+            ),
+            "good"
+        );
+
+
+        checkWin();
+
+    }
+
+    else {
+
+        button.classList.add(
+            "wrong"
+        );
+
+
+        wrongGuesses++;
+
+
+        updateTrials();
+
+        updateSnowman();
+
+
+        if (
+            MAX_TRIALS -
+            wrongGuesses
+            > 0
+        ) {
+
+            showMessage(
+                "❄️ The snowman is melting! " +
+                (
+                    MAX_TRIALS -
+                    wrongGuesses
+                ) +
+                " trial" +
+                (
+                    MAX_TRIALS -
+                    wrongGuesses
+                    === 1
+                        ? ""
+                        : "s"
+                ) +
+                " left!",
+                "bad"
+            );
+
         }
+
+
+        if (
+            wrongGuesses >=
+            MAX_TRIALS
+        ) {
+
+            loseGame();
+
+        }
+
     }
 }
 
-/* =====================================================
+
+/* =========================================================
    DISPLAY WORD
-===================================================== */
+========================================================= */
+
 function displayWord() {
-    const container = document.getElementById("letterSlots");
-    container.innerHTML = "";
 
-    secretWord.split("").forEach(letter => {
-        const slot = document.createElement("div");
-        slot.className = "letter-slot";
+    const display =
+        document.getElementById(
+            "wordDisplay"
+        );
 
-        if (guessedLetters.includes(letter)) {
-            slot.textContent = letter;
+
+    display.innerHTML = "";
+
+
+    for (
+        let letter of secretWord
+    ) {
+
+        const slot =
+            document.createElement(
+                "div"
+            );
+
+
+        slot.className =
+            "letter-slot";
+
+
+        if (
+            guessedLetters.includes(
+                letter
+            )
+        ) {
+
+            slot.textContent =
+                letter;
+
+            slot.classList.add(
+                "revealed"
+            );
+
         }
 
-        container.appendChild(slot);
-    });
+        else {
+
+            slot.textContent =
+                "";
+
+        }
+
+
+        display.appendChild(
+            slot
+        );
+
+    }
 }
+
+
+/* =========================================================
+   CHECK WIN
+========================================================= */
+
+function checkWin() {
+
+    let complete =
+        true;
+
+
+    for (
+        let letter of secretWord
+    ) {
+
+        if (
+            !guessedLetters.includes(
+                letter
+            )
+        ) {
+
+            complete =
+                false;
+
+            break;
+        }
+
+    }
+
+
+    if (complete) {
+
+        gameFinished =
+            true;
+
+
+        clearInterval(
+            timerInterval
+        );
+
+
+        showResult(
+            "🎉 Amazing!",
+            "You saved the snowman!",
+            true
+        );
+
+    }
+}
+
+
+/* =========================================================
+   SNOWMAN
+========================================================= */
 
 function updateSnowman() {
-    const snowman = document.getElementById("snowman");
 
-    for (let stage = 1; stage <= 7; stage++) {
-        snowman.classList.remove("stage" + stage);
+    const snowman =
+        document.getElementById(
+            "snowman"
+        );
+
+
+    for (
+        let i = 1;
+        i <= 7;
+        i++
+    ) {
+
+        snowman.classList.remove(
+            "stage" + i
+        );
+
     }
 
-    const stage = Math.min(wrongGuesses + 1, 7);
-    snowman.classList.add("stage" + stage);
-}
 
-/* =====================================================
-   WIN AND LOSE
-===================================================== */
-function winGame() {
-    if (gameFinished) return;
+    const stage =
+        Math.min(
+            wrongGuesses + 1,
+            7
+        );
 
-    gameFinished = true;
-    clearInterval(timerInterval);
 
-    score += 10;
-    document.getElementById("score").textContent = score;
-
-    showResult(
-        "🎉 You Saved the Snowman!",
-        "Excellent work! You guessed " + secretWord + " correctly!",
-        true
+    snowman.classList.add(
+        "stage" + stage
     );
 }
 
-function loseGame() {
-    if (gameFinished) return;
 
-    gameFinished = true;
-    clearInterval(timerInterval);
+/* =========================================================
+   LOSE
+========================================================= */
+
+function loseGame() {
+
+    gameFinished =
+        true;
+
+
+    clearInterval(
+        timerInterval
+    );
+
+
     revealWord();
+
 
     showResult(
         "☃️ Oh No!",
-        "The snowman melted! The word was " + secretWord + ".",
+        "The snowman melted! The word was " +
+        secretWord +
+        ".",
         false
     );
 }
 
+
+/* =========================================================
+   REVEAL WORD
+========================================================= */
+
 function revealWord() {
-    guessedLetters = [...new Set([...guessedLetters, ...secretWord.split("")])];
+
+    guessedLetters =
+        secretWord.split("");
+
     displayWord();
 }
 
-function showMessage(text, type) {
-    const message = document.getElementById("message");
-    message.textContent = text;
-    message.className = "message " + type;
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+function showMessage(
+    text,
+    type
+) {
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    message.textContent =
+        text;
+
+
+    message.className =
+        "message " +
+        type;
 }
 
-/* =====================================================
-   RESULTS
-===================================================== */
-function showResult(title, message, won) {
-    document.getElementById("resultTitle").textContent = title;
-    document.getElementById("resultMessage").textContent = message;
-    document.getElementById("finalScore").textContent = score;
-    document.getElementById("resultOverlay").style.display = "flex";
+
+/* =========================================================
+   RESULT
+========================================================= */
+
+function showResult(
+    title,
+    message,
+    won
+) {
+
+    document
+        .getElementById(
+            "resultTitle"
+        )
+        .textContent =
+        title;
+
+
+    document
+        .getElementById(
+            "resultMessage"
+        )
+        .textContent =
+        message;
+
+
+    document
+        .getElementById(
+            "finalScore"
+        )
+        .textContent =
+        score;
+
+
+    document
+        .getElementById(
+            "resultOverlay"
+        )
+        .style.display =
+        "flex";
 }
+
 
 function closeResult() {
-    document.getElementById("resultOverlay").style.display = "none";
+
+    document
+        .getElementById(
+            "resultOverlay"
+        )
+        .style.display =
+        "none";
+
+
     nextWord();
 }
 
-/* =====================================================
+
+/* =========================================================
    NEXT WORD
-===================================================== */
+========================================================= */
+
 function nextWord() {
-    clearInterval(timerInterval);
+
+    clearInterval(
+        timerInterval
+    );
+
+
+    document
+        .getElementById(
+            "resultOverlay"
+        )
+        .style.display =
+        "none";
+
 
     wrongGuesses = 0;
+
     guessedLetters = [];
+
     gameFinished = false;
+
+
     round++;
 
-    if (gameMode !== "manual") {
-        // Reuse the selected category for the next word.
-        secretWord = getRandomWord();
-        timeLeft = selectedMinutes * 60;
 
-        document.getElementById("round").textContent = round;
-        document.getElementById("resultOverlay").style.display = "none";
+    /*
+     * For automatic modes,
+     * immediately create another word.
+     */
+
+    if (
+        gameMode !== "manual"
+    ) {
+
+        secretWord =
+            getRandomWord();
+
+        timeLeft =
+            selectedMinutes * 60;
+
+
+        document
+            .getElementById(
+                "round"
+            )
+            .textContent =
+            round;
+
 
         updateTimerDisplay();
+
         updateTrials();
+
         createAlphabet();
+
         displayWord();
+
         updateSnowman();
-        showMessage("Choose a letter!", "");
+
+        showMessage(
+            "Choose a letter!",
+            ""
+        );
+
         startTimer();
+
         return;
     }
 
-    document.getElementById("resultOverlay").style.display = "none";
-    document.getElementById("gameScreen").style.display = "none";
-    document.getElementById("setupScreen").style.display = "block";
 
-    document.getElementById("wordInput").value = "";
-    document.getElementById("wordInput").focus();
+    /*
+     * Manual mode goes back
+     * to the word entry screen.
+     */
+
+    document
+        .getElementById(
+            "gameScreen"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "setupScreen"
+        )
+        .style.display =
+        "block";
+
+
+    document
+        .getElementById(
+            "wordInput"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "wordInput"
+        )
+        .focus();
 }
 
-/* =====================================================
+
+/* =========================================================
    NEW GAME
-===================================================== */
+========================================================= */
+
 function newGame() {
-    clearInterval(timerInterval);
+
+    clearInterval(
+        timerInterval
+    );
+
 
     score = 0;
+
     round = 1;
+
     wrongGuesses = 0;
+
     guessedLetters = [];
+
     gameFinished = false;
 
-    document.getElementById("score").textContent = "0";
-    document.getElementById("round").textContent = "1";
-    document.getElementById("resultOverlay").style.display = "none";
-    document.getElementById("gameScreen").style.display = "none";
-    document.getElementById("setupScreen").style.display = "block";
 
-    document.getElementById("wordInput").value = "";
+    document
+        .getElementById(
+            "score"
+        )
+        .textContent =
+        "0";
+
+
+    document
+        .getElementById(
+            "gameScreen"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "setupScreen"
+        )
+        .style.display =
+        "block";
+
+
+    document
+        .getElementById(
+            "wordInput"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "wordInput"
+        )
+        .focus();
 }
 
-/* Enter starts a manually entered word. */
-document.getElementById("wordInput").addEventListener("keydown", event => {
-    if (event.key === "Enter" && gameMode === "manual") {
-        startGame();
+
+/* =========================================================
+   KEYBOARD SUPPORT
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        /*
+         * Don't use keyboard guessing
+         * while entering a manual word.
+         */
+
+        if (
+            document
+                .getElementById(
+                    "gameScreen"
+                )
+                .style.display ===
+            "none"
+        ) {
+
+            return;
+        }
+
+
+        if (gameFinished)
+            return;
+
+
+        const key =
+            event.key.toUpperCase();
+
+
+        if (
+            key.length === 1 &&
+            key >= "A" &&
+            key <= "Z"
+        ) {
+
+            const button =
+                document.querySelector(
+                    `[data-letter="${key}"]`
+                );
+
+
+            if (
+                button &&
+                !button.disabled
+            ) {
+
+                chooseLetter(
+                    key,
+                    button
+                );
+
+            }
+
+        }
+
     }
-});
+);
+
 </script>
+
 </body>
 </html>
